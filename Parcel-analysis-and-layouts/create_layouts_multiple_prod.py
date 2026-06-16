@@ -281,6 +281,13 @@ def create_layout_and_export(config, out_folder):
         except Exception as e:
             arcpy.AddWarning(f'PNG export error: {e}')
 
+        try:
+            pagx_path = os.path.join(out_folder, f'{layout_name}.pagx')
+            lyt.exportToPAGX(pagx_path)
+            arcpy.AddMessage(f'PAGX exported: {pagx_path}')
+        except Exception as e:
+            arcpy.AddWarning(f'PAGX export error: {e}')
+
     finally:
         # Always restore the original layer name
         if parcel_layer is not None:

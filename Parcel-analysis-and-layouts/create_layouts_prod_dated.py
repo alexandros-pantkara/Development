@@ -398,6 +398,13 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
     except Exception as e:
         arcpy.AddWarning(f"PNG export error: {e}")
 
+    try:
+        pagx_path = os.path.join(out_folder, f'{safe_title}.pagx')
+        lyt.exportToPAGX(pagx_path)
+        arcpy.AddMessage(f'PAGX exported: {pagx_path}')
+    except Exception as e:
+        arcpy.AddWarning(f'PAGX export error: {e}')
+
 # ─── Execute ─────────────────────────────────────────────────────────────────
 PARCEL_DISPLAY_NAME = "ΓΕΩΤΕΜΑΧΙΟ"
 
