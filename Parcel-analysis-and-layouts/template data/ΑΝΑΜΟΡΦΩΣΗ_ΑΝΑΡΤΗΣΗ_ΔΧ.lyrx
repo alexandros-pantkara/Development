@@ -1,0 +1,1597 @@
+{
+  "type" : "CIMLayerDocument",
+  "version" : "3.6.0",
+  "build" : 59527,
+  "layers" : [
+    "CIMPATH=Map/____________________.json"
+  ],
+  "layerDefinitions" : [
+    {
+      "type" : "CIMFeatureLayer",
+      "name" : "ΑΝΑΜΟΡΦΩΣΗ ΔΑΣΙΚΟΥ ΧΑΡΤΗ",
+      "uRI" : "CIMPATH=Map/____________________.json",
+      "sourceModifiedTime" : {
+        "type" : "TimeInstant"
+      },
+      "metadataURI" : "CIMPATH=Metadata/20ef8c4ae6e9eb13f2b017b033c3e622.xml",
+      "useSourceMetadata" : true,
+      "description" : "DX ANAMORFOSH 22",
+      "layerElevation" : {
+        "type" : "CIMLayerElevationSurface",
+        "elevationSurfaceLayerURI" : "CIMPATH=Map/6e3e0032002241f1bf8923eeb9c5222c.json"
+      },
+      "expanded" : true,
+      "layerType" : "Operational",
+      "showLegends" : true,
+      "visibility" : true,
+      "displayCacheType" : "Permanent",
+      "maxDisplayCacheAge" : 5,
+      "showPopups" : true,
+      "serviceLayerID" : -1,
+      "refreshRate" : -1,
+      "refreshRateUnit" : "esriTimeUnitsSeconds",
+      "blendingMode" : "Alpha",
+      "allowDrapingOnIntegratedMesh" : true,
+      "autoGenerateFeatureTemplates" : true,
+      "featureElevationExpression" : "0",
+      "featureTable" : {
+        "type" : "CIMFeatureTable",
+        "displayField" : "DKA",
+        "editable" : true,
+        "fieldDescriptions" : [
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "FID",
+            "fieldName" : "FID",
+            "numberFormat" : {
+              "type" : "CIMNumericFormat",
+              "alignmentOption" : "esriAlignRight",
+              "alignmentWidth" : 0,
+              "roundingOption" : "esriRoundNumberOfDecimals",
+              "roundingValue" : 0
+            },
+            "readOnly" : true,
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "Shape",
+            "fieldName" : "Shape",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "AREA",
+            "fieldName" : "AREA",
+            "numberFormat" : {
+              "type" : "CIMNumericFormat",
+              "alignmentOption" : "esriAlignRight",
+              "alignmentWidth" : 0,
+              "roundingOption" : "esriRoundNumberOfDecimals",
+              "roundingValue" : 3
+            },
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "PERIMETER",
+            "fieldName" : "PERIMETER",
+            "numberFormat" : {
+              "type" : "CIMNumericFormat",
+              "alignmentOption" : "esriAlignRight",
+              "alignmentWidth" : 0,
+              "roundingOption" : "esriRoundNumberOfDecimals",
+              "roundingValue" : 3
+            },
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "DKA",
+            "fieldName" : "DKA",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "NOMOS",
+            "fieldName" : "NOMOS",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "OTA",
+            "fieldName" : "OTA",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "KATHGORDX",
+            "fieldName" : "KATHGORDX",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "KATHGORAL1",
+            "fieldName" : "KATHGORAL1",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "LANDTYPE",
+            "fieldName" : "LANDTYPE",
+            "numberFormat" : {
+              "type" : "CIMNumericFormat",
+              "alignmentOption" : "esriAlignRight",
+              "alignmentWidth" : 0,
+              "roundingOption" : "esriRoundNumberOfDecimals",
+              "roundingValue" : 0
+            },
+            "visible" : true,
+            "searchMode" : "Exact"
+          }
+        ],
+        "dataConnection" : {
+          "type" : "CIMStandardDataConnection",
+          "workspaceConnectionString" : "DATABASE=..\\..\\..\\Data\\TEST\\ΨΗΦΙΑΚΟ ΑΡΧΕΙΟ\\SHP\\ANAMORFOSH DASIKOU XARTH 22\\TOTAL",
+          "workspaceFactory" : "Shapefile",
+          "dataset" : "DX ANAMORFOSH 22.SHP",
+          "datasetType" : "esriDTFeatureClass"
+        },
+        "studyAreaSpatialRel" : "esriSpatialRelUndefined",
+        "searchOrder" : "esriSearchOrderSpatial"
+      },
+      "featureTemplates" : [
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΑΑ (ΑΓΡΟΤΚΗ ΜΟΡΦΗ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΑΑ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΠΑ (ΠΡΑΞΗ ΑΓΡΟΤ. ΜΟΡΦΗΣ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΠΑ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΑΔ (ΔΑΣΩΜΕΝΟΣ ΑΓΡΟΣ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΑΔ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΔΑ (ΕΚΧΕΡΣΩΜΕΝΗ ΔΑΣ. ΕΚΤΑΣΗ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΔΑ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΔΔ (ΔΑΣΙΚΗ ΜΟΡΦΗ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΔΔ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΠΔ (ΠΡΑΞΗ ΔΑΣΙΚΗΣ ΜΟΡΦΗΣ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΠΔ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΠΧ (ΠΡΑΞΗ ΧΟΡΤΟΛ. ΜΟΡΦΗΣ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΠΧ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΧΑ (ΕΚΧΕΡΣΩΜΕΝΗ ΧΟΡΤΟΛ. ΕΚΤΑΣΗ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΧΑ"
+            ]
+          }
+        },
+        {
+          "type" : "CIMRowTemplate",
+          "name" : "ΧΧ (ΧΟΡΤΟΛΙΒΑΔΙΚΗ ΜΟΡΦΗ)",
+          "defaultValues" : {
+            "type" : "PropertySet",
+            "propertySetItems" : [
+              "KATHGORDX",
+              "ΧΧ"
+            ]
+          }
+        }
+      ],
+      "htmlPopupEnabled" : true,
+      "selectable" : true,
+      "featureCacheType" : "Session",
+      "displayFiltersType" : "ByScale",
+      "featureBlendingMode" : "Alpha",
+      "layerEffectsMode" : "Layer",
+      "labelClasses" : [
+        {
+          "type" : "CIMLabelClass",
+          "expressionTitle" : "Custom",
+          "expression" : "$feature.KATHGORDX",
+          "expressionEngine" : "Arcade",
+          "featuresToLabel" : "AllVisibleFeatures",
+          "maplexLabelPlacementProperties" : {
+            "type" : "CIMMaplexLabelPlacementProperties",
+            "featureType" : "Polygon",
+            "avoidPolygonHoles" : true,
+            "canOverrunFeature" : true,
+            "canPlaceLabelOutsidePolygon" : true,
+            "canRemoveOverlappingLabel" : true,
+            "canStackLabel" : true,
+            "centerLabelAnchorType" : "Symbol",
+            "connectionType" : "Unambiguous",
+            "constrainOffset" : "NoConstraint",
+            "contourAlignmentType" : "Page",
+            "contourLadderType" : "Straight",
+            "contourMaximumAngle" : 90,
+            "enableConnection" : true,
+            "featureWeight" : 0,
+            "fontHeightReductionLimit" : 4,
+            "fontHeightReductionStep" : 0.5,
+            "fontWidthReductionLimit" : 90,
+            "fontWidthReductionStep" : 5,
+            "graticuleAlignmentType" : "Straight",
+            "keyNumberGroupName" : "Default",
+            "labelBuffer" : 15,
+            "labelLargestPolygon" : true,
+            "labelPriority" : -1,
+            "labelStackingProperties" : {
+              "type" : "CIMMaplexLabelStackingProperties",
+              "stackAlignment" : "ChooseBest",
+              "maximumNumberOfLines" : 3,
+              "minimumNumberOfCharsPerLine" : 3,
+              "maximumNumberOfCharsPerLine" : 24,
+              "separators" : [
+                {
+                  "type" : "CIMMaplexStackingSeparator",
+                  "separator" : " ",
+                  "splitAfter" : true
+                },
+                {
+                  "type" : "CIMMaplexStackingSeparator",
+                  "separator" : ",",
+                  "visible" : true,
+                  "splitAfter" : true
+                }
+              ],
+              "trimStackingSeparators" : true,
+              "preferToStackLongLabels" : true
+            },
+            "lineFeatureType" : "General",
+            "linePlacementMethod" : "OffsetCurvedFromLine",
+            "maximumLabelOverrun" : 80,
+            "maximumLabelOverrunUnit" : "Point",
+            "measureFromClippedFeatureGeometry" : true,
+            "minimumFeatureSizeUnit" : "Map",
+            "multiPartOption" : "OneLabelPerPart",
+            "offsetAlongLineProperties" : {
+              "type" : "CIMMaplexOffsetAlongLineProperties",
+              "placementMethod" : "BestPositionAlongLine",
+              "labelAnchorPoint" : "CenterOfLabel",
+              "distanceUnit" : "Percentage",
+              "useLineDirection" : true
+            },
+            "pointExternalZonePriorities" : {
+              "type" : "CIMMaplexExternalZonePriorities",
+              "aboveLeft" : 4,
+              "aboveCenter" : 2,
+              "aboveRight" : 1,
+              "centerRight" : 3,
+              "belowRight" : 5,
+              "belowCenter" : 7,
+              "belowLeft" : 8,
+              "centerLeft" : 6
+            },
+            "pointPlacementMethod" : "AroundPoint",
+            "polygonAnchorPointType" : "GeometricCenter",
+            "polygonBoundaryWeight" : 0,
+            "polygonExternalZones" : {
+              "type" : "CIMMaplexExternalZonePriorities",
+              "aboveLeft" : 4,
+              "aboveCenter" : 2,
+              "aboveRight" : 1,
+              "centerRight" : 3,
+              "belowRight" : 5,
+              "belowCenter" : 7,
+              "belowLeft" : 8,
+              "centerLeft" : 6
+            },
+            "polygonFeatureType" : "General",
+            "polygonInternalZones" : {
+              "type" : "CIMMaplexInternalZonePriorities",
+              "center" : 1
+            },
+            "polygonPlacementMethod" : "HorizontalInPolygon",
+            "primaryOffset" : 1,
+            "primaryOffsetUnit" : "Point",
+            "removeAmbiguousLabels" : "All",
+            "removeExtraWhiteSpace" : true,
+            "repetitionIntervalUnit" : "Point",
+            "rotationProperties" : {
+              "type" : "CIMMaplexRotationProperties",
+              "rotationType" : "Arithmetic",
+              "alignmentType" : "Straight"
+            },
+            "secondaryOffset" : 100,
+            "secondaryOffsetUnit" : "Percentage",
+            "strategyPriorities" : {
+              "type" : "CIMMaplexStrategyPriorities",
+              "stacking" : 1,
+              "overrun" : 2,
+              "fontCompression" : 3,
+              "fontReduction" : 4,
+              "abbreviation" : 5
+            },
+            "thinningDistanceUnit" : "Point",
+            "truncationMarkerCharacter" : ".",
+            "truncationMinimumLength" : 1,
+            "truncationPreferredCharacters" : "aeiou",
+            "truncationExcludedCharacters" : "0123456789",
+            "polygonAnchorPointPerimeterInsetUnit" : "Point"
+          },
+          "name" : "Class 1",
+          "priority" : -1,
+          "standardLabelPlacementProperties" : {
+            "type" : "CIMStandardLabelPlacementProperties",
+            "featureType" : "Line",
+            "featureWeight" : "None",
+            "labelWeight" : "High",
+            "numLabelsOption" : "OneLabelPerName",
+            "lineLabelPosition" : {
+              "type" : "CIMStandardLineLabelPosition",
+              "above" : true,
+              "inLine" : true,
+              "parallel" : true
+            },
+            "lineLabelPriorities" : {
+              "type" : "CIMStandardLineLabelPriorities",
+              "aboveStart" : 3,
+              "aboveAlong" : 3,
+              "aboveEnd" : 3,
+              "centerStart" : 3,
+              "centerAlong" : 3,
+              "centerEnd" : 3,
+              "belowStart" : 3,
+              "belowAlong" : 3,
+              "belowEnd" : 3
+            },
+            "pointPlacementMethod" : "AroundPoint",
+            "pointPlacementPriorities" : {
+              "type" : "CIMStandardPointPlacementPriorities",
+              "aboveLeft" : 2,
+              "aboveCenter" : 2,
+              "aboveRight" : 1,
+              "centerLeft" : 3,
+              "centerRight" : 2,
+              "belowLeft" : 3,
+              "belowCenter" : 3,
+              "belowRight" : 2
+            },
+            "rotationType" : "Arithmetic",
+            "polygonPlacementMethod" : "AlwaysHorizontal"
+          },
+          "textSymbol" : {
+            "type" : "CIMSymbolReference",
+            "symbol" : {
+              "type" : "CIMTextSymbol",
+              "blockProgression" : "TTB",
+              "depth3D" : 1,
+              "extrapolateBaselines" : true,
+              "fontEffects" : "Normal",
+              "fontEncoding" : "Unicode",
+              "fontFamilyName" : "Arial",
+              "fontStyleName" : "Regular",
+              "fontType" : "TTOpenType",
+              "haloSize" : 1,
+              "height" : 17,
+              "hinting" : "Default",
+              "horizontalAlignment" : "Left",
+              "kerning" : true,
+              "letterWidth" : 100,
+              "ligatures" : true,
+              "lineGapType" : "ExtraLeading",
+              "symbol" : {
+                "type" : "CIMPolygonSymbol",
+                "symbolLayers" : [
+                  {
+                    "type" : "CIMSolidFill",
+                    "enable" : true,
+                    "color" : {
+                      "type" : "CIMRGBColor",
+                      "values" : [
+                        190,
+                        20,
+                        4,
+                        100
+                      ]
+                    }
+                  }
+                ],
+                "angleAlignment" : "Map"
+              },
+              "textCase" : "Normal",
+              "textDirection" : "LTR",
+              "verticalAlignment" : "Bottom",
+              "verticalGlyphOrientation" : "Right",
+              "wordSpacing" : 100,
+              "billboardMode3D" : "FaceNearPlane"
+            }
+          },
+          "useCodedValue" : true,
+          "visibility" : true,
+          "iD" : -1
+        }
+      ],
+      "labelVisibility" : true,
+      "renderer" : {
+        "type" : "CIMUniqueValueRenderer",
+        "sampleSize" : 10000,
+        "colorRamp" : {
+          "type" : "CIMRandomHSVColorRamp",
+          "colorSpace" : {
+            "type" : "CIMICCColorSpace",
+            "url" : "Default RGB"
+          },
+          "maxH" : 360,
+          "minS" : 50,
+          "maxS" : 80,
+          "minV" : 50,
+          "maxV" : 70,
+          "minAlpha" : 100,
+          "maxAlpha" : 100
+        },
+        "defaultLabel" : "<all other values>",
+        "defaultSymbol" : {
+          "type" : "CIMSymbolReference",
+          "symbol" : {
+            "type" : "CIMPolygonSymbol",
+            "symbolLayers" : [
+              {
+                "type" : "CIMSolidStroke",
+                "enable" : true,
+                "capStyle" : "Round",
+                "joinStyle" : "Round",
+                "lineStyle3D" : "Strip",
+                "miterLimit" : 10,
+                "width" : 0.69999999999999996,
+                "height3D" : 1,
+                "anchor3D" : "Center",
+                "color" : {
+                  "type" : "CIMRGBColor",
+                  "values" : [
+                    110,
+                    110,
+                    110,
+                    100
+                  ]
+                }
+              },
+              {
+                "type" : "CIMSolidFill",
+                "enable" : true,
+                "color" : {
+                  "type" : "CIMRGBColor",
+                  "values" : [
+                    130,
+                    130,
+                    130,
+                    100
+                  ]
+                }
+              }
+            ],
+            "angleAlignment" : "Map"
+          }
+        },
+        "defaultSymbolPatch" : "Default",
+        "fields" : [
+          "KATHGORDX"
+        ],
+        "groups" : [
+          {
+            "type" : "CIMUniqueValueGroup",
+            "classes" : [
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΑΑ (ΑΓΡΟΤΚΗ ΜΟΡΦΗ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 1,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            157,
+                            104,
+                            104,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "name" : "New_aa09646e-007b-4ad1-af0e-4ba3781f5e58",
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 4,
+                              "width" : 0.5,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  157,
+                                  104,
+                                  104,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 45,
+                        "separation" : 5
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΑΑ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΑΔ (ΔΑΣΩΜΕΝΟΣ ΑΓΡΟΣ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_24864bfb-7bf4-4fdd-ba02-9c6fe53360a4",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.40000000000000002,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            77,
+                            175,
+                            74,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMVectorMarker",
+                        "enable" : true,
+                        "anchorPointUnits" : "Relative",
+                        "dominantSizeAxis3D" : "Y",
+                        "size" : 1,
+                        "billboardMode3D" : "None",
+                        "markerPlacement" : {
+                          "type" : "CIMMarkerPlacementInsidePolygon",
+                          "gridType" : "Fixed",
+                          "offsetX" : 3,
+                          "randomness" : 100,
+                          "seed" : 13,
+                          "stepX" : 4,
+                          "stepY" : 4,
+                          "offsetY" : 3,
+                          "clipping" : "ClipAtBoundary"
+                        },
+                        "frame" : {
+                          "xmin" : -5,
+                          "ymin" : -5,
+                          "xmax" : 5,
+                          "ymax" : 5
+                        },
+                        "markerGraphics" : [
+                          {
+                            "type" : "CIMMarkerGraphic",
+                            "geometry" : {
+                              "rings" : [
+                                [
+                                  [
+                                    -5,
+                                    5
+                                  ],
+                                  [
+                                    5,
+                                    5
+                                  ],
+                                  [
+                                    5,
+                                    -5
+                                  ],
+                                  [
+                                    -5,
+                                    -5
+                                  ],
+                                  [
+                                    -5,
+                                    5
+                                  ]
+                                ]
+                              ]
+                            },
+                            "symbol" : {
+                              "type" : "CIMPolygonSymbol",
+                              "symbolLayers" : [
+                                {
+                                  "type" : "CIMSolidFill",
+                                  "enable" : true,
+                                  "color" : {
+                                    "type" : "CIMRGBColor",
+                                    "values" : [
+                                      77,
+                                      175,
+                                      74,
+                                      100
+                                    ]
+                                  }
+                                }
+                              ],
+                              "angleAlignment" : "Map"
+                            }
+                          }
+                        ],
+                        "scaleSymbolsProportionally" : true,
+                        "respectFrame" : true
+                      },
+                      {
+                        "type" : "CIMSolidFill",
+                        "enable" : false,
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            255,
+                            255,
+                            255,
+                            100
+                          ]
+                        }
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΑΔ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΔΑ (ΕΚΧΕΡΣΩΜΕΝΗ ΔΑΣ. ΕΚΤΑΣΗ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_5e29fbcd-9b58-4426-a560-c91178928099",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.40000000000000002,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            228,
+                            26,
+                            28,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMVectorMarker",
+                        "enable" : true,
+                        "anchorPointUnits" : "Relative",
+                        "dominantSizeAxis3D" : "Y",
+                        "size" : 0.75,
+                        "billboardMode3D" : "None",
+                        "markerPlacement" : {
+                          "type" : "CIMMarkerPlacementInsidePolygon",
+                          "gridType" : "Fixed",
+                          "offsetX" : 3,
+                          "randomness" : 100,
+                          "seed" : 13,
+                          "stepX" : 4,
+                          "stepY" : 4,
+                          "offsetY" : 3,
+                          "clipping" : "ClipAtBoundary"
+                        },
+                        "frame" : {
+                          "xmin" : -5,
+                          "ymin" : -5,
+                          "xmax" : 5,
+                          "ymax" : 5
+                        },
+                        "markerGraphics" : [
+                          {
+                            "type" : "CIMMarkerGraphic",
+                            "geometry" : {
+                              "rings" : [
+                                [
+                                  [
+                                    -5,
+                                    5
+                                  ],
+                                  [
+                                    5,
+                                    5
+                                  ],
+                                  [
+                                    5,
+                                    -5
+                                  ],
+                                  [
+                                    -5,
+                                    -5
+                                  ],
+                                  [
+                                    -5,
+                                    5
+                                  ]
+                                ]
+                              ]
+                            },
+                            "symbol" : {
+                              "type" : "CIMPolygonSymbol",
+                              "symbolLayers" : [
+                                {
+                                  "type" : "CIMSolidStroke",
+                                  "enable" : true,
+                                  "name" : "New_9be6bed6-b8f3-4d65-a8a0-baab4c844718",
+                                  "capStyle" : "Round",
+                                  "joinStyle" : "Round",
+                                  "lineStyle3D" : "Strip",
+                                  "miterLimit" : 4,
+                                  "width" : 0,
+                                  "height3D" : 1,
+                                  "anchor3D" : "Center",
+                                  "color" : {
+                                    "type" : "CIMRGBColor",
+                                    "values" : [
+                                      228,
+                                      26,
+                                      28,
+                                      100
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type" : "CIMSolidFill",
+                                  "enable" : true,
+                                  "color" : {
+                                    "type" : "CIMRGBColor",
+                                    "values" : [
+                                      228,
+                                      26,
+                                      28,
+                                      100
+                                    ]
+                                  }
+                                }
+                              ],
+                              "angleAlignment" : "Map"
+                            }
+                          }
+                        ],
+                        "scaleSymbolsProportionally" : true,
+                        "respectFrame" : true
+                      },
+                      {
+                        "type" : "CIMSolidFill",
+                        "enable" : false,
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            255,
+                            255,
+                            255,
+                            100
+                          ]
+                        }
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΔΑ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΔΔ (ΔΑΣΙΚΗ ΜΟΡΦΗ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.69999999999999996,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            51,
+                            160,
+                            44,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "name" : "New_2b57a547-4aa1-4b8f-a9a7-51b85d8d95e1",
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 4,
+                              "width" : 1,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMHSVColor",
+                                "values" : [
+                                  116.38,
+                                  72.5,
+                                  62.75,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 45,
+                        "separation" : 4
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΔΔ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΠΑ (ΠΡΑΞΗ ΑΓΡΟΤ. ΜΟΡΦΗΣ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_b8648409-76db-4008-a4d0-8fb73fc981af",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 4,
+                        "width" : 1,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            126,
+                            72,
+                            72,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  126,
+                                  72,
+                                  72,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 135,
+                        "separation" : 6
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  126,
+                                  72,
+                                  72,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 45,
+                        "separation" : 6
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΠΑ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΠΔ (ΠΡΑΞΗ ΔΑΣΙΚΗΣ ΜΟΡΦΗΣ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_6194f09f-b8d1-44bc-8c1d-bab7b67b44a6",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.69999999999999996,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            51,
+                            160,
+                            44,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "name" : "New_cc83de2f-830a-46ff-9492-4ac993092dd2",
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  51,
+                                  160,
+                                  44,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 135,
+                        "separation" : 12
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "name" : "New_4bf0854b-fbfe-456e-8333-b24c69f6db8c",
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  51,
+                                  160,
+                                  44,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 45,
+                        "separation" : 6
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΠΔ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΠΧ (ΠΡΑΞΗ ΧΟΡΤΟΛ. ΜΟΡΦΗΣ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_f9e71b10-b60d-4269-b0d3-65e754fe1c76",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.69999999999999996,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            253,
+                            191,
+                            111,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "name" : "New_c8f9c8dc-6e10-49a5-a91b-9e927207a575",
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  253,
+                                  191,
+                                  111,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 135,
+                        "separation" : 6
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  253,
+                                  191,
+                                  111,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 45,
+                        "separation" : 12
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΠΧ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΧΑ (ΕΚΧΕΡΣΩΜΕΝΗ ΧΟΡΤΟΛ. ΕΚΤΑΣΗ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_d4d3d876-6b85-419b-8f84-5c95a5f8e260",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.40000000000000002,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            253,
+                            191,
+                            111,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMVectorMarker",
+                        "enable" : true,
+                        "name" : "New_945d516b-c503-49a6-8e84-e546548a1fb0",
+                        "anchorPointUnits" : "Relative",
+                        "dominantSizeAxis3D" : "Y",
+                        "size" : 1,
+                        "billboardMode3D" : "None",
+                        "markerPlacement" : {
+                          "type" : "CIMMarkerPlacementInsidePolygon",
+                          "gridType" : "Fixed",
+                          "offsetX" : 3,
+                          "randomness" : 100,
+                          "seed" : 13,
+                          "stepX" : 4,
+                          "stepY" : 4,
+                          "offsetY" : 3,
+                          "clipping" : "ClipAtBoundary"
+                        },
+                        "frame" : {
+                          "xmin" : -5,
+                          "ymin" : -5,
+                          "xmax" : 5,
+                          "ymax" : 5
+                        },
+                        "markerGraphics" : [
+                          {
+                            "type" : "CIMMarkerGraphic",
+                            "geometry" : {
+                              "rings" : [
+                                [
+                                  [
+                                    -5,
+                                    5
+                                  ],
+                                  [
+                                    5,
+                                    5
+                                  ],
+                                  [
+                                    5,
+                                    -5
+                                  ],
+                                  [
+                                    -5,
+                                    -5
+                                  ],
+                                  [
+                                    -5,
+                                    5
+                                  ]
+                                ]
+                              ]
+                            },
+                            "symbol" : {
+                              "type" : "CIMPolygonSymbol",
+                              "symbolLayers" : [
+                                {
+                                  "type" : "CIMSolidStroke",
+                                  "enable" : true,
+                                  "name" : "New_d6a2ddbb-13be-4730-85f1-df69faeb1b8c",
+                                  "capStyle" : "Round",
+                                  "joinStyle" : "Round",
+                                  "lineStyle3D" : "Strip",
+                                  "miterLimit" : 4,
+                                  "width" : 0,
+                                  "height3D" : 1,
+                                  "anchor3D" : "Center",
+                                  "color" : {
+                                    "type" : "CIMRGBColor",
+                                    "values" : [
+                                      137,
+                                      68,
+                                      68,
+                                      100
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type" : "CIMSolidFill",
+                                  "enable" : true,
+                                  "color" : {
+                                    "type" : "CIMRGBColor",
+                                    "values" : [
+                                      137,
+                                      68,
+                                      68,
+                                      100
+                                    ]
+                                  }
+                                }
+                              ],
+                              "angleAlignment" : "Map"
+                            }
+                          }
+                        ],
+                        "scaleSymbolsProportionally" : true,
+                        "respectFrame" : true
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΧΑ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              },
+              {
+                "type" : "CIMUniqueValueClass",
+                "label" : "ΧΧ (ΧΟΡΤΟΛΙΒΑΔΙΚΗ ΜΟΡΦΗ)",
+                "patch" : "Default",
+                "symbol" : {
+                  "type" : "CIMSymbolReference",
+                  "symbol" : {
+                    "type" : "CIMPolygonSymbol",
+                    "symbolLayers" : [
+                      {
+                        "type" : "CIMSolidStroke",
+                        "enable" : true,
+                        "name" : "New_3f82dbe2-580c-4db1-aaed-1c3e6183f5d3",
+                        "capStyle" : "Round",
+                        "joinStyle" : "Round",
+                        "lineStyle3D" : "Strip",
+                        "miterLimit" : 10,
+                        "width" : 0.69999999999999996,
+                        "height3D" : 1,
+                        "anchor3D" : "Center",
+                        "color" : {
+                          "type" : "CIMRGBColor",
+                          "values" : [
+                            253,
+                            191,
+                            111,
+                            100
+                          ]
+                        }
+                      },
+                      {
+                        "type" : "CIMHatchFill",
+                        "enable" : true,
+                        "name" : "New_8818f5f1-5af8-4d0e-b4ec-22c9683d2ae9",
+                        "lineSymbol" : {
+                          "type" : "CIMLineSymbol",
+                          "symbolLayers" : [
+                            {
+                              "type" : "CIMSolidStroke",
+                              "enable" : true,
+                              "capStyle" : "Round",
+                              "joinStyle" : "Round",
+                              "lineStyle3D" : "Strip",
+                              "miterLimit" : 10,
+                              "width" : 0.69999999999999996,
+                              "height3D" : 1,
+                              "anchor3D" : "Center",
+                              "color" : {
+                                "type" : "CIMRGBColor",
+                                "values" : [
+                                  253,
+                                  191,
+                                  111,
+                                  100
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "rotation" : 45,
+                        "separation" : 9
+                      }
+                    ],
+                    "angleAlignment" : "Map"
+                  }
+                },
+                "values" : [
+                  {
+                    "type" : "CIMUniqueValue",
+                    "fieldValues" : [
+                      "ΧΧ"
+                    ]
+                  }
+                ],
+                "visible" : true
+              }
+            ],
+            "heading" : "ΜΟΡΦΕΣ ΔΑΣΙΚΟΥ ΧΑΡΤΗ"
+          }
+        ],
+        "isDefaultSymbolVisible" : false,
+        "polygonSymbolColorTarget" : "Fill"
+      },
+      "scaleSymbols" : true,
+      "snappable" : true
+    }
+  ],
+  "binaryReferences" : [
+    {
+      "type" : "CIMBinaryReference",
+      "uRI" : "CIMPATH=Metadata/20ef8c4ae6e9eb13f2b017b033c3e622.xml",
+      "data" : "<?xml version=\"1.0\"?>\r\n<metadata xml:lang=\"en\"><Esri><CreaDate>20260302</CreaDate><CreaTime>11101900</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce></Esri><dataIdInfo><idCitation><resTitle>ΜΟΡΦΕΣ ΔΑΣΙΚΟΥ ΧΑΡΤΗ</resTitle></idCitation><idAbs>DX ANAMORFOSH 22</idAbs><idCredit></idCredit><idPurp></idPurp><resConst><Consts><useLimit></useLimit></Consts></resConst></dataIdInfo></metadata>\r\n"
+    }
+  ],
+  "rGBColorProfile" : "sRGB IEC61966-2.1",
+  "cMYKColorProfile" : "U.S. Web Coated (SWOP) v2",
+  "elevationSurfaceLayerDefinitions" : [
+    {
+      "type" : "CIMElevationSurfaceLayer",
+      "name" : "Ground",
+      "uRI" : "CIMPATH=Map/6e3e0032002241f1bf8923eeb9c5222c.json",
+      "sourceModifiedTime" : {
+        "type" : "TimeInstant"
+      },
+      "useSourceMetadata" : true,
+      "description" : "Ground",
+      "expanded" : true,
+      "layer3DProperties" : {
+        "type" : "CIM3DLayerProperties",
+        "castShadows" : true,
+        "isLayerLit" : true,
+        "layerFaceCulling" : "None",
+        "preloadTextureCutoffHigh" : 0.29999999999999999,
+        "preloadTextureCutoffLow" : 0.59999999999999998,
+        "textureCutoffHigh" : 0.29999999999999999,
+        "textureCutoffLow" : 0.59999999999999998,
+        "useCompressedTextures" : true,
+        "verticalExaggeration" : 1,
+        "exaggerationMode" : "ScaleZ",
+        "lighting" : "OneSideDataNormal",
+        "optimizeMarkerTransparency" : true
+      },
+      "layerType" : "Operational",
+      "showLegends" : false,
+      "visibility" : true,
+      "displayCacheType" : "Permanent",
+      "maxDisplayCacheAge" : 5,
+      "showPopups" : true,
+      "serviceLayerID" : -1,
+      "refreshRate" : -1,
+      "refreshRateUnit" : "esriTimeUnitsSeconds",
+      "blendingMode" : "Alpha",
+      "allowDrapingOnIntegratedMesh" : true,
+      "elevationMode" : "BaseGlobeSurface",
+      "verticalExaggeration" : 1,
+      "color" : {
+        "type" : "CIMRGBColor",
+        "values" : [
+          255,
+          255,
+          255,
+          100
+        ]
+      },
+      "surfaceTINShadingMode" : "Smooth"
+    }
+  ]
+}
