@@ -22,7 +22,6 @@ On this GitHub page, click the green **"< > Code"** button near the top right of
 
 <img width="404" height="305" alt="image" src="https://github.com/user-attachments/assets/d25ac4ff-1474-4e8d-aa51-19957d7c8089" />
 
-
 **Step 2 – Choose where to save the files**
 
 GitHub Desktop will open and ask you where on your computer you'd like to save the repository. Click **"Choose..."** to browse to a folder (for example, `Documents\GIS Tools`), then click **"Clone"**.
@@ -48,3 +47,9 @@ To open the folder where all the files were saved, click the **"Show in Explorer
 Whenever new tools or updates are added to this repository, you can get the latest version by opening GitHub Desktop, selecting this repository, and clicking **"Fetch origin"** followed by **"Pull origin"**. This will update your local copy without you having to download anything manually.
 
 > 📸 *[Screenshot: GitHub Desktop showing the "Fetch origin" / "Pull origin" button in the top bar]*
+
+## Repository Contents
+The following are the important contents of this repository
+* Parcel analysis and layouts.atbx: The ArcGIS Toolbox that should be loaded into your project. The Toolbox is essentially the UI that allows you to run scripts through ArcGIS. Those scripts are found in the folder Parcel-analysis-and-layouts
+* Parcel-analysis-and-layouts folder: This folder contains the scripts that the Toolbox uses
+* Other folder: This folder contains some standalone jupyter notebook scripts. They are also run through through ArcGIS, but those are interactive scripts, they don't require a Toolbox. More details below. 
