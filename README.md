@@ -1,6 +1,6 @@
 # Pantkara Development
 This repository contains tools and scripts for Pantkara Organization workflows. This includes tools for importing and analyzing parcels, exporting layouts automatically, and more. The following are the important contents of this repository:
-* Parcel analysis and layouts.atbx: The ArcGIS Toolbox that should be loaded into your project. The Toolbox is essentially the UI that allows you to run scripts through ArcGIS. Those scripts are found in the folder Parcel-analysis-and-layouts
+* Parcel analysis and layouts.atbx: The ArcGIS Toolbox that should be loaded into your project. The Toolbox is essentially the user interface that allows you to run scripts through ArcGIS. Those scripts are found in the folder Parcel-analysis-and-layouts
 * Parcel-analysis-and-layouts folder: This folder contains the scripts that the Toolbox uses
 * Other folder: This folder contains some standalone jupyter notebook scripts. They are also run through through ArcGIS, but those are interactive scripts, they don't require a Toolbox. More details below. 
 
@@ -56,6 +56,7 @@ The **Development** folder in which you have cloned this repository in your loca
 
 <img width="493" height="86" alt="image" src="https://github.com/user-attachments/assets/0a0d5e51-2ec3-4cca-b492-a0b648f2657f" /> ->
 
-<img width="460" height="457" alt="image" src="https://github.com/user-attachments/assets/a3444f40-7adf-4442-838e-2aea88e64f6d" />
+<img width="525" height="581" alt="image" src="https://github.com/user-attachments/assets/c69768ba-ab84-442e-b25b-63041022ef74" />
+
 
 After saving the project, the folder (and thus the tools) will now always be accessible. 
