@@ -20,7 +20,8 @@ Before downloading the tools, make sure you have **GitHub Desktop** installed. G
 
 On this GitHub page, click the green **"< > Code"** button near the top right of the file list, then select **"Open with GitHub Desktop"**.
 
-> 📸 *[Screenshot: GitHub page with the green "Code" button highlighted and the dropdown showing "Open with GitHub Desktop"]*
+<img width="404" height="305" alt="image" src="https://github.com/user-attachments/assets/d25ac4ff-1474-4e8d-aa51-19957d7c8089" />
+
 
 **Step 2 – Choose where to save the files**
 
