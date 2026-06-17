@@ -1,2 +1,49 @@
-# Development
-Pantkara tools
+# Pantkara Development
+This repository contains tools and scripts for Pantkara Organization workflows.
+
+## Getting the Tools on Your Computer
+
+### What You'll Need
+
+Before downloading the tools, make sure you have **GitHub Desktop** installed. GitHub Desktop is a free application that lets you download and manage files from GitHub without any coding knowledge.
+
+- Download GitHub Desktop from: [desktop.github.com](https://desktop.github.com)
+- Install it and sign in (create an account at [github.com](https://github.com) **with your organization email**)
+
+***
+
+### How to Clone (Download) This Repository
+
+"Cloning" simply means downloading a copy of all the tools and files from this repository to your own computer, so you can use and run them locally.
+
+**Step 1 – Open the repository in GitHub Desktop**
+
+On this GitHub page, click the green **"< > Code"** button near the top right of the file list, then select **"Open with GitHub Desktop"**.
+
+> 📸 *[Screenshot: GitHub page with the green "Code" button highlighted and the dropdown showing "Open with GitHub Desktop"]*
+
+**Step 2 – Choose where to save the files**
+
+GitHub Desktop will open and ask you where on your computer you'd like to save the repository. Click **"Choose..."** to browse to a folder (for example, `Documents\GIS Tools`), then click **"Clone"**.
+
+> 📸 *[Screenshot: GitHub Desktop clone dialog, showing the local path field and the Clone button]*
+
+**Step 3 – Wait for the download to finish**
+
+GitHub Desktop will download all the files. Once it's done, you'll see the repository listed on the left side of the app.
+
+> 📸 *[Screenshot: GitHub Desktop after a successful clone, showing the repository in the sidebar]*
+
+**Step 4 – Find the files on your computer**
+
+To open the folder where all the files were saved, click the **"Show in Explorer"** button (Windows) or **"Reveal in Finder"** (Mac) in GitHub Desktop.
+
+> 📸 *[Screenshot: GitHub Desktop with the "Show in Explorer" / "Reveal in Finder" option highlighted]*
+
+***
+
+### Keeping the Tools Up to Date
+
+Whenever new tools or updates are added to this repository, you can get the latest version by opening GitHub Desktop, selecting this repository, and clicking **"Fetch origin"** followed by **"Pull origin"**. This will update your local copy without you having to download anything manually.
+
+> 📸 *[Screenshot: GitHub Desktop showing the "Fetch origin" / "Pull origin" button in the top bar]*
