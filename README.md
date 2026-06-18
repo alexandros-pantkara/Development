@@ -35,13 +35,14 @@ GitHub Desktop will open and ask you where on your computer you'd like to save t
 
 GitHub Desktop will download all the files. Once it's done, you'll see the repository listed on the left side of the app.
 
-> 📸 *[Screenshot: GitHub Desktop after a successful clone, showing the repository in the sidebar]*
+<img width="647" height="460" alt="image" src="https://github.com/user-attachments/assets/52f2fce2-bf2b-4532-a8b3-b1f3f6050c5a" />
 
 **Step 4 – Find the files on your computer**
 
 To open the folder where all the files were saved, click the **"Show in Explorer"** button (Windows) or **"Reveal in Finder"** (Mac) in GitHub Desktop.
 
-> 📸 *[Screenshot: GitHub Desktop with the "Show in Explorer" / "Reveal in Finder" option highlighted]*
+<img width="1008" height="498" alt="image" src="https://github.com/user-attachments/assets/a9db418e-5298-4d51-a380-2d9cc7a66d76" />
+
 
 ***
 
