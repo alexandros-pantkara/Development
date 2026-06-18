@@ -6,7 +6,7 @@ from datetime import datetime
 # Get parameters from the script tool
 input_geodatabase = arcpy.GetParameterAsText(0)
 input_server_folder = arcpy.GetParameterAsText(1)
-
+#this is a test
 desc = arcpy.Describe(input_geodatabase)
 # If Describe has a .path (feature class/table/etc.), use that as workspace; otherwise use the input itself
 workspace_path = getattr(desc, 'path', None) or input_geodatabase
