@@ -55,9 +55,11 @@ Whenever new tools or updates are added to this repository, you can get the late
 ## Setting up the Tools
 The **Development** folder in which you have cloned this repository in your local computer **should be a stable folder**. The tools will reside there, and ArcGIS will read them from there. Copy the Folder path and use "Add folder Connection" from Catalog, to import them in the project.
 
-<img width="493" height="86" alt="image" src="https://github.com/user-attachments/assets/0a0d5e51-2ec3-4cca-b492-a0b648f2657f" /> ->
+<img width="493" height="86" alt="image" src="https://github.com/user-attachments/assets/0a0d5e51-2ec3-4cca-b492-a0b648f2657f" /> 
+
+Then you should be able to see the tools enlisted in your project. After saving the project, the folder (and thus the tools) will now always be accessible. 
 
 <img width="525" height="581" alt="image" src="https://github.com/user-attachments/assets/c69768ba-ab84-442e-b25b-63041022ef74" />
 
 
-After saving the project, the folder (and thus the tools) will now always be accessible. 
+
