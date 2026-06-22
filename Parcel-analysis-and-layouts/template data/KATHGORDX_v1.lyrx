@@ -1,20 +1,20 @@
 {
   "type" : "CIMLayerDocument",
-  "version" : "3.6.0",
-  "build" : 59527,
+  "version" : "3.7.0",
+  "build" : 1901,
   "layers" : [
-    "CIMPATH=Map/DX_ANAMORFOSH_22.json"
+    "CIMPATH=Map/____________________.json"
   ],
   "layerDefinitions" : [
     {
       "type" : "CIMFeatureLayer",
-      "name" : "ΜΟΡΦΕΣ ΔΑΣΙΚΟΥ ΧΑΡΤΗ",
-      "uRI" : "CIMPATH=Map/DX_ANAMORFOSH_22.json",
+      "name" : "ΓΕΩΤΕΜΑΧΙΟ_ΜΟΡΦΕΣ_ΔΧ",
+      "uRI" : "CIMPATH=Map/____________________.json",
       "sourceModifiedTime" : {
         "type" : "TimeInstant"
       },
       "useSourceMetadata" : true,
-      "description" : "DX ANAMORFOSH 22",
+      "description" : "ΓΕΩΤΕΜΑΧΙΟ_ΜΟΡΦΕΣ_ΔΧ",
       "layerElevation" : {
         "type" : "CIMLayerElevationSurface",
         "elevationSurfaceLayerURI" : "CIMPATH=Map/6e3e0032002241f1bf8923eeb9c5222c.json"
@@ -22,7 +22,7 @@
       "expanded" : true,
       "layerType" : "Operational",
       "showLegends" : true,
-      "visibility" : true,
+      "visibility" : false,
       "displayCacheType" : "Permanent",
       "maxDisplayCacheAge" : 5,
       "showPopups" : true,
@@ -35,13 +35,13 @@
       "featureElevationExpression" : "0",
       "featureTable" : {
         "type" : "CIMFeatureTable",
-        "displayField" : "DKA",
+        "displayField" : "NOMOS",
         "editable" : true,
         "fieldDescriptions" : [
           {
             "type" : "CIMFieldDescription",
-            "alias" : "FID",
-            "fieldName" : "FID",
+            "alias" : "OBJECTID",
+            "fieldName" : "OBJECTID",
             "numberFormat" : {
               "type" : "CIMNumericFormat",
               "alignmentOption" : "esriAlignRight",
@@ -57,41 +57,6 @@
             "type" : "CIMFieldDescription",
             "alias" : "Shape",
             "fieldName" : "Shape",
-            "visible" : true,
-            "searchMode" : "Exact"
-          },
-          {
-            "type" : "CIMFieldDescription",
-            "alias" : "AREA",
-            "fieldName" : "AREA",
-            "numberFormat" : {
-              "type" : "CIMNumericFormat",
-              "alignmentOption" : "esriAlignRight",
-              "alignmentWidth" : 0,
-              "roundingOption" : "esriRoundNumberOfDecimals",
-              "roundingValue" : 3
-            },
-            "visible" : true,
-            "searchMode" : "Exact"
-          },
-          {
-            "type" : "CIMFieldDescription",
-            "alias" : "PERIMETER",
-            "fieldName" : "PERIMETER",
-            "numberFormat" : {
-              "type" : "CIMNumericFormat",
-              "alignmentOption" : "esriAlignRight",
-              "alignmentWidth" : 0,
-              "roundingOption" : "esriRoundNumberOfDecimals",
-              "roundingValue" : 3
-            },
-            "visible" : true,
-            "searchMode" : "Exact"
-          },
-          {
-            "type" : "CIMFieldDescription",
-            "alias" : "DKA",
-            "fieldName" : "DKA",
             "visible" : true,
             "searchMode" : "Exact"
           },
@@ -125,6 +90,13 @@
           },
           {
             "type" : "CIMFieldDescription",
+            "alias" : "KATHGORAL2",
+            "fieldName" : "KATHGORAL2",
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
             "alias" : "LANDTYPE",
             "fieldName" : "LANDTYPE",
             "numberFormat" : {
@@ -136,123 +108,58 @@
             },
             "visible" : true,
             "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "Shape_Length",
+            "fieldName" : "Shape_Length",
+            "numberFormat" : {
+              "type" : "CIMNumericFormat",
+              "alignmentOption" : "esriAlignRight",
+              "alignmentWidth" : 0,
+              "roundingOption" : "esriRoundNumberOfDecimals",
+              "roundingValue" : 6
+            },
+            "readOnly" : true,
+            "visible" : true,
+            "searchMode" : "Exact"
+          },
+          {
+            "type" : "CIMFieldDescription",
+            "alias" : "Shape_Area",
+            "fieldName" : "Shape_Area",
+            "numberFormat" : {
+              "type" : "CIMNumericFormat",
+              "alignmentOption" : "esriAlignRight",
+              "alignmentWidth" : 0,
+              "roundingOption" : "esriRoundNumberOfDecimals",
+              "roundingValue" : 6
+            },
+            "readOnly" : true,
+            "visible" : true,
+            "searchMode" : "Exact"
           }
         ],
         "dataConnection" : {
           "type" : "CIMStandardDataConnection",
-          "workspaceConnectionString" : "DATABASE=..\\..\\..\\Data\\TEST\\ΨΗΦΙΑΚΟ ΑΡΧΕΙΟ\\SHP\\ANAMORFOSH DASIKOU XARTH 22\\TOTAL",
-          "workspaceFactory" : "Shapefile",
-          "dataset" : "DX ANAMORFOSH 22.SHP",
+          "workspaceConnectionString" : "DATABASE=..\\..\\..\\MANDRA\\METRO\\ΜΕΤΡΟ.gdb",
+          "workspaceFactory" : "FileGDB",
+          "dataset" : "ΓΕΩΤΕΜΑΧΙΟ_ΜΟΡΦΕΣ_ΔΧ",
           "datasetType" : "esriDTFeatureClass"
         },
         "studyAreaSpatialRel" : "esriSpatialRelUndefined",
         "searchOrder" : "esriSearchOrderSpatial"
       },
-      "featureTemplates" : [
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΑΑ (ΑΓΡΟΤΚΗ ΜΟΡΦΗ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΑΑ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΑΔ (ΔΑΣΩΜΕΝΟΣ ΑΓΡΟΣ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΑΔ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΔΑ (ΕΚΧΕΡΣΩΜΕΝΗ ΔΑΣ. ΕΚΤΑΣΗ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΔΑ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΔΔ (ΔΑΣΙΚΗ ΜΟΡΦΗ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΔΔ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΠΑ (ΠΡΑΞΗ ΑΓΡΟΤ. ΜΟΡΦΗΣ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΠΑ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΠΔ (ΠΡΑΞΗ ΔΑΣΙΚΗΣ ΜΟΡΦΗΣ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΠΔ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΠΧ (ΠΡΑΞΗ ΧΟΡΤΟΛ. ΜΟΡΦΗΣ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΠΧ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΧΑ (ΕΚΧΕΡΣΩΜΕΝΗ ΧΟΡΤΟΛ. ΕΚΤΑΣΗ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΧΑ"
-            ]
-          }
-        },
-        {
-          "type" : "CIMRowTemplate",
-          "name" : "ΧΧ (ΧΟΡΤΟΛΙΒΑΔΙΚΗ ΜΟΡΦΗ)",
-          "defaultValues" : {
-            "type" : "PropertySet",
-            "propertySetItems" : [
-              "KATHGORDX",
-              "ΧΧ"
-            ]
-          }
-        }
-      ],
       "htmlPopupEnabled" : true,
       "selectable" : true,
       "featureCacheType" : "Session",
       "displayFiltersType" : "ByScale",
+      "featureElevationExpressionInfo" : {
+        "type" : "CIMExpressionInfo",
+        "title" : "Custom",
+        "expression" : "0",
+        "returnType" : "Default"
+      },
       "featureBlendingMode" : "Alpha",
       "layerEffectsMode" : "Layer",
       "labelClasses" : [
@@ -545,7 +452,7 @@
             "classes" : [
               {
                 "type" : "CIMUniqueValueClass",
-                "label" : "ΑΑ (ΑΓΡΟΤΚΗ ΜΟΡΦΗ)",
+                "label" : "ΑΑ (ΑΓΡΟΤΙΚΗ ΜΟΡΦΗ)",
                 "patch" : "Default",
                 "symbol" : {
                   "type" : "CIMSymbolReference",
@@ -1058,56 +965,5 @@
     }
   ],
   "rGBColorProfile" : "sRGB IEC61966-2.1",
-  "cMYKColorProfile" : "U.S. Web Coated (SWOP) v2",
-  "elevationSurfaceLayerDefinitions" : [
-    {
-      "type" : "CIMElevationSurfaceLayer",
-      "name" : "Ground",
-      "uRI" : "CIMPATH=Map/6e3e0032002241f1bf8923eeb9c5222c.json",
-      "sourceModifiedTime" : {
-        "type" : "TimeInstant"
-      },
-      "useSourceMetadata" : true,
-      "description" : "Ground",
-      "expanded" : true,
-      "layer3DProperties" : {
-        "type" : "CIM3DLayerProperties",
-        "castShadows" : true,
-        "isLayerLit" : true,
-        "layerFaceCulling" : "None",
-        "preloadTextureCutoffHigh" : 0.29999999999999999,
-        "preloadTextureCutoffLow" : 0.59999999999999998,
-        "textureCutoffHigh" : 0.29999999999999999,
-        "textureCutoffLow" : 0.59999999999999998,
-        "useCompressedTextures" : true,
-        "verticalExaggeration" : 1,
-        "exaggerationMode" : "ScaleZ",
-        "lighting" : "OneSideDataNormal",
-        "optimizeMarkerTransparency" : true
-      },
-      "layerType" : "Operational",
-      "showLegends" : false,
-      "visibility" : true,
-      "displayCacheType" : "Permanent",
-      "maxDisplayCacheAge" : 5,
-      "showPopups" : true,
-      "serviceLayerID" : -1,
-      "refreshRate" : -1,
-      "refreshRateUnit" : "esriTimeUnitsSeconds",
-      "blendingMode" : "Alpha",
-      "allowDrapingOnIntegratedMesh" : true,
-      "elevationMode" : "BaseGlobeSurface",
-      "verticalExaggeration" : 1,
-      "color" : {
-        "type" : "CIMRGBColor",
-        "values" : [
-          255,
-          255,
-          255,
-          100
-        ]
-      },
-      "surfaceTINShadingMode" : "Smooth"
-    }
-  ]
+  "cMYKColorProfile" : "U.S. Web Coated (SWOP) v2"
 }
