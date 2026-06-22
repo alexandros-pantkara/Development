@@ -1,7 +1,7 @@
 import arcpy
 import os
 
-
+# This is a test. Hello Elena!
 def set_layer_visibility(map_obj, layers_to_show):
     layers_to_show_set = set(layers_to_show)
     arcpy.AddMessage('Layers to show: ' + ', '.join(layers_to_show_set))
