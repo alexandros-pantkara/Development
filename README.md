@@ -19,17 +19,15 @@ Before downloading the tools, make sure you have **GitHub Desktop** installed. G
 
 "Cloning" simply means downloading a copy of all the tools and files from this repository to your own computer, so you can use and run them locally.
 
-**Step 1 – Open the repository in GitHub Desktop**
+**Step 1 – Copy the repository URL**
 
-On this GitHub page, click the green **"< > Code"** button near the top right of the file list, then select **"Open with GitHub Desktop"**.
-
-<img width="404" height="305" alt="image" src="https://github.com/user-attachments/assets/d25ac4ff-1474-4e8d-aa51-19957d7c8089" />
+Copy the URL of this repository (https://github.com/alexandros-pantkara/Development), as it will be used in next step.
 
 **Step 2 – Choose where to save the files**
 
-GitHub Desktop will open and ask you where on your computer you'd like to save the repository. Click **"Choose..."** to browse to a folder (for example, `Documents\GIS Tools`), then click **"Clone"**.
+Open Github Desktop and select **File**, then **Clone a repository** and go to **URL** tab. Paste the link there, and select the local folder in which the repository will be cloned. 
 
-<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/c650ceda-e780-4972-9c18-58d7305020fe" />
+<img width="496" height="298" alt="image" src="https://github.com/user-attachments/assets/0730ab68-2736-498b-9e3d-409d4d59c727" />
 
 **Step 3 – Wait for the download to finish**
 
