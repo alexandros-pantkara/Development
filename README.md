@@ -79,15 +79,15 @@ To run a tool, simply double click on it, and the input dialogue window will app
 -Symmarize Polygons (Intersect): Intersects main parcel (ΓΕΩΤΕΜΑΧΙΟ) with forest cover map and summarizes contained forest cover categories. Computes ΕΠΙΔΙΚΟ ΤΜΗΜΑ based on forest cover map classes. 
 
 **Layouts**
--Generate Layouts_DA (Δασωμένος Αγρός): Given some input layers, produces the appropriate layouts for Δασωμένος Αγρός cases. Loops through the input layers and generates the required layouts. It also generates map templates so that the layouts can be revisited later and edited manually. 
--Generate Layouts_PROD (Πρόδηλο Σφάλμα): Given some input layers, produces the appropriate layouts for Πρόδηλο Σφάλμα cases. Loops through the input layers and generates the required layouts. It also generates map --templates so that the layouts can be revisited later and edited manually. 
--Generate Layouts_PROD_Dated (Πρόδηλο Σφάλμα Διαχρονική παρουσίαση): For the case of Πρόδηλο Σφάλμα - Διαχρονική παρουσίαση. 
+- Generate Layouts_DA (Δασωμένος Αγρός): Given some input layers, produces the appropriate layouts for Δασωμένος Αγρός cases. Loops through the input layers and generates the required layouts. It also generates map templates so that the layouts can be revisited later and edited manually. 
+- Generate Layouts_PROD (Πρόδηλο Σφάλμα): Given some input layers, produces the appropriate layouts for Πρόδηλο Σφάλμα cases. Loops through the input layers and generates the required layouts. It also generates map templates so that the layouts can be revisited later and edited manually. 
+- Generate Layouts_PROD_Dated (Πρόδηλο Σφάλμα Διαχρονική παρουσίαση): For the case of Πρόδηλο Σφάλμα - Διαχρονική παρουσίαση. 
 
 **Other**
--Identify Rasters: Intersects the main layer (e.g. ΓΕΩΤΕΜΑΧΙΟ) with the Image Catalog layer to find which rasters from ProstasiaData are useful.
--Mosaic Rasters: Given multiple input rasters, performs a basic stiching
--Layer Coordinates to Table: Given an input vector layer, exports its coordinates to a Geodatabase Table 
+- Identify Rasters: Intersects the main layer (e.g. ΓΕΩΤΕΜΑΧΙΟ) with the Image Catalog layer to find which rasters from ProstasiaData are useful.
+- Mosaic Rasters: Given multiple input rasters, performs a basic stiching
+- Layer Coordinates to Table: Given an input vector layer, exports its coordinates to a Geodatabase Table 
 
 **Sharing**
--Upload to Server: Copies the project and the geodatabase to a desired folder (usually a server folder, for backup)
--Download from Server: Copies from server to local folder. 
+- Upload to Server: Copies the project and the geodatabase to a desired folder (usually a server folder, for backup)
+- Download from Server: Copies from server to local folder. 
