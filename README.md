@@ -60,5 +60,34 @@ Then you should be able to see the tools enlisted in your project. After saving 
 
 <img width="525" height="581" alt="image" src="https://github.com/user-attachments/assets/c69768ba-ab84-442e-b25b-63041022ef74" />
 
+Normally, the Toolbox (.atbx file) is set to "see" the scripts in the Parcel-analysis-and-layouts folder. Ensure it is like that, by clicking on a script, selecting **Properties** and then **Execution**
 
+<img width="1236" height="766" alt="image" src="https://github.com/user-attachments/assets/bf3c29d5-670f-4f49-a117-5b060941a855" />
 
+If not, click on the folder icon on the right, and select the appropriate script (.py file within Parcel-analysis-and-layouts folder, the .py script names resemble their titles in the Toolbox).
+
+## Running the tools
+
+To run a tool, simply double click on it, and the input dialogue window will appear. You set the inputs there, and run. The blue question mark symbol on the top right provides an overview of what the tool does (see also below). The blue "i" symbol next to each input parameter (hover above it) explains what input is expected. 
+
+<img width="606" height="836" alt="image" src="https://github.com/user-attachments/assets/51689744-0b56-4587-93d6-8e5b04de1516" />
+
+## Overview of the tools' functionality
+
+**Parcel tools**
+-Convert from CAD: Converts a .dxf CAD file into a Geodatabase Feature class, which is the appropriate format for analysis within GIS.
+-Symmarize Polygons (Intersect): Intersects main parcel (ΓΕΩΤΕΜΑΧΙΟ) with forest cover map and summarizes contained forest cover categories. Computes ΕΠΙΔΙΚΟ ΤΜΗΜΑ based on forest cover map classes. 
+
+**Layouts**
+-Generate Layouts_DA (Δασωμένος Αγρός): Given some input layers, produces the appropriate layouts for Δασωμένος Αγρός cases. Loops through the input layers and generates the required layouts. It also generates map templates so that the layouts can be revisited later and edited manually. 
+-Generate Layouts_PROD (Πρόδηλο Σφάλμα): Given some input layers, produces the appropriate layouts for Πρόδηλο Σφάλμα cases. Loops through the input layers and generates the required layouts. It also generates map --templates so that the layouts can be revisited later and edited manually. 
+-Generate Layouts_PROD_Dated (Πρόδηλο Σφάλμα Διαχρονική παρουσίαση): For the case of Πρόδηλο Σφάλμα - Διαχρονική παρουσίαση. 
+
+**Other**
+-Identify Rasters: Intersects the main layer (e.g. ΓΕΩΤΕΜΑΧΙΟ) with the Image Catalog layer to find which rasters from ProstasiaData are useful.
+-Mosaic Rasters: Given multiple input rasters, performs a basic stiching
+-Layer Coordinates to Table: Given an input vector layer, exports its coordinates to a Geodatabase Table 
+
+**Sharing**
+-Upload to Server: Copies the project and the geodatabase to a desired folder (usually a server folder, for backup)
+-Download from Server: Copies from server to local folder. 
