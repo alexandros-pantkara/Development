@@ -29,7 +29,7 @@ On this GitHub page, click the green **"< > Code"** button near the top right of
 
 GitHub Desktop will open and ask you where on your computer you'd like to save the repository. Click **"Choose..."** to browse to a folder (for example, `Documents\GIS Tools`), then click **"Clone"**.
 
-> 📸 *[Screenshot: GitHub Desktop clone dialog, showing the local path field and the Clone button]*
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/c650ceda-e780-4972-9c18-58d7305020fe" />
 
 **Step 3 – Wait for the download to finish**
 
@@ -48,9 +48,10 @@ To open the folder where all the files were saved, click the **"Show in Explorer
 
 ### Keeping the Tools Up to Date
 
-Whenever new tools or updates are added to this repository, you can get the latest version by opening GitHub Desktop, selecting this repository, and clicking **"Fetch origin"** followed by **"Pull origin"**. This will update your local copy without you having to download anything manually.
+Whenever new tools or updates are added to this repository, you can get the latest version by opening GitHub Desktop, selecting Repository, and then **"Fetch"** and **Pull**. This will update your local copy without you having to download anything manually.
 
-> 📸 *[Screenshot: GitHub Desktop showing the "Fetch origin" / "Pull origin" button in the top bar]*
+<img width="383" height="456" alt="image" src="https://github.com/user-attachments/assets/5909adc5-d631-4b5f-9517-75baf3774cd2" />
+
 
 ## Setting up the Tools
 The **Development** folder in which you have cloned this repository in your local computer **should be a stable folder**. The tools will reside there, and ArcGIS will read them from there. Copy the Folder path and use "Add folder Connection" from Catalog, to import them in the project.
