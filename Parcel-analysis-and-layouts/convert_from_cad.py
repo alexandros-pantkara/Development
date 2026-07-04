@@ -1,6 +1,5 @@
 import arcpy
 import os
-from pathlib import Path
 
 # Get parameters from the script tool
 input_cad_dataset = arcpy.GetParameterAsText(0)
@@ -19,7 +18,6 @@ arcpy.AddMessage(f"Output dataset name determined as: {out_dataset_name}")
 # Reference the current ArcGIS Project
 aprx = arcpy.mp.ArcGISProject("CURRENT")
 project_folder = aprx.homeFolder
-templates_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "template data")
 
 arcpy.AddMessage("Converting CAD dataset to Geodatabase...")
 # --- Process: CAD to Geodatabase ---
