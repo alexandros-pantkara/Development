@@ -1,7 +1,7 @@
 import arcpy
 import os
 
-# This is a test. Hello Elena!
+
 def set_layer_visibility(map_obj, layers_to_show):
     layers_to_show_set = set(layers_to_show)
     arcpy.AddMessage('Layers to show: ' + ', '.join(layers_to_show_set))
@@ -51,6 +51,34 @@ def reorder_layers(map_obj, ordered_names):
     arcpy.AddMessage('Layer reorder complete.')
 
 
+def find_layer(map_obj, name):
+    name = name.strip("'")
+    for lyr in map_obj.listLayers():
+        if lyr.name == name or getattr(lyr, 'longName', '') == name:
+            return lyr
+    return None
+
+
+def get_vector_layers_after_raster(map_obj, ordered_names):
+    """
+    Given a layout's configured layer order (first = top of TOC, last =
+    bottom), returns the layer objects for entries that come after a raster
+    entry in that order - i.e. vector layers a raster is drawn on top of.
+    Rasters are identified by filename extension, matching how they're named
+    in the Layers parameter.
+    """
+    layers_after_raster = []
+    raster_seen = False
+    for name in ordered_names:
+        if name.lower().endswith(RASTER_EXTENSIONS):
+            raster_seen = True
+        elif raster_seen:
+            lyr = find_layer(map_obj, name)
+            if lyr is not None:
+                layers_after_raster.append(lyr)
+    return layers_after_raster
+
+
 def restore_layer_order(map_obj, original_order):
     arcpy.AddMessage('Restoring original layer order...')
     ref_layer = None
@@ -93,6 +121,7 @@ PAGE_H = (210 / 25.4) * 72.0
 MF_MARGIN = 50
 MM = 72.0 / 25.4
 LOGO_PATH = './template data/logo.png'
+RASTER_EXTENSIONS = ('.tif', '.tiff', '.jp2', '.ecw', '.img', '.sid')
 
 out_folder = arcpy.GetParameterAsText(0)
 
@@ -239,6 +268,17 @@ def create_layout_and_export(config, out_folder):
     set_layer_visibility(m, layers)
     reorder_layers(m, layers)
 
+    # Labels must be hidden for vector layers that a raster is drawn on top
+    # of in this layout's configured order (this layout only).
+    labels_to_restore = []
+    for lyr in get_vector_layers_after_raster(m, layers):
+        try:
+            labels_to_restore.append((lyr, lyr.showLabels))
+            lyr.showLabels = False
+            arcpy.AddMessage(f'Disabled labels for "{lyr.name}" (covered by a raster in the order).')
+        except Exception as e:
+            arcpy.AddWarning(f'Could not disable labels for "{lyr.name}": {e}')
+
     # Find the parcel layer and rename it AFTER visibility is resolved
     parcel_layer = None
     parcel_original_name = None
@@ -361,6 +401,13 @@ def create_layout_and_export(config, out_folder):
             arcpy.AddWarning(f'PAGX export error: {e}')
 
     finally:
+        # Restore labels that were disabled for this layout only
+        for lyr, original_state in labels_to_restore:
+            try:
+                lyr.showLabels = original_state
+            except Exception as e:
+                arcpy.AddWarning(f'Could not restore labels for "{lyr.name}": {e}')
+
         # Always restore the original layer name
         if parcel_layer is not None:
             try:
