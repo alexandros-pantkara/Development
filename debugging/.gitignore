@@ -1,0 +1,4 @@
+# Local debugging scratch: crash dumps, findings notes, sample .aprx copies.
+# Machine-specific, not part of the tools - keep the folder, ignore contents.
+*
+!.gitignore

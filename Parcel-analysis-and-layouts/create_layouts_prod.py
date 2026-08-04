@@ -104,6 +104,26 @@ def make_map_frame(lyt, map_obj, ll_x_pt, ll_y_pt, w_pt, h_pt, name):
     return lyt.createMapFrame(polygon, map_obj, name)
 
 
+def save_project():
+    """
+    aprx.save(), guarded. A map with an empty name makes ArcGIS Pro throw when
+    the Layout pane builds its map drop-down - the name sort hits a null key.
+    The crash therefore fires whenever a layout view is opened, not at project
+    load. Refuse to persist that state instead of leaving it in the .aprx.
+
+    This does not remove an existing empty-named map or protect the current
+    session; it only stops the tool writing the condition to disk.
+    """
+    unnamed = [mp for mp in aprx.listMaps() if not (mp.name or '').strip()]
+    if unnamed:
+        msg = (f'Refusing to save: {len(unnamed)} map(s) have an empty name. '
+               'This crashes ArcGIS Pro when a layout view builds its map list. '
+               'Rename or delete them, then re-run.')
+        arcpy.AddError(msg)
+        raise RuntimeError(msg)
+    aprx.save()
+
+
 aprx = arcpy.mp.ArcGISProject('CURRENT')
 m = aprx.activeMap
 
@@ -134,6 +154,11 @@ layout_configs = []
 for i in range(num_layouts):
     base = 1 + i * PARAMS_PER_LAYOUT
     layout_name = arcpy.GetParameterAsText(base).strip()
+    if not layout_name:
+        arcpy.AddError(
+            f'Layout {i + 1} has no name - skipping. An unnamed layout produces an '
+            'unnamed map, which crashes ArcGIS Pro when the Layout pane builds its map list.')
+        continue
     layers_raw = arcpy.GetParameterAsText(base + 1)
     extent_raw = arcpy.GetParameterAsText(base + 2)
     transparent = arcpy.GetParameter(base + 3)
@@ -157,12 +182,18 @@ for i in range(num_layouts):
 arcpy.AddMessage(f'Loaded {len(layout_configs)} valid layout(s).')
 
 # --- Clean up maps from previous runs ---
+# Imported maps are stored under the colon-sanitised name (see layout_name_export
+# below), so matching on the raw layout name alone never hits and every run leaves
+# another copy behind. Match both forms to also clear maps left by earlier runs.
 layout_names_set = {cfg['name'] for cfg in layout_configs}
+layout_names_set |= {name.replace(':', '_') for name in layout_names_set}
 for existing_map in aprx.listMaps():
-    if existing_map.name.startswith('Layout_{n}_Map_') or existing_map.name in layout_names_set:
+    # Per-frame maps are named 'Εικόνα_{n}_Map_1', where n varies between runs.
+    is_frame_map = existing_map.name.startswith('Εικόνα_') and '_Map_' in existing_map.name
+    if is_frame_map or existing_map.name in layout_names_set:
         arcpy.AddMessage(f'Deleting existing map: {existing_map.name}')
         aprx.deleteItem(existing_map)
-aprx.save()
+save_project()
 
 
 def create_layout_and_export(config, out_folder):
@@ -309,7 +340,7 @@ def create_layout_and_export(config, out_folder):
             new_map = aprx.importDocument(map_file_path)
             if new_map.name != layout_name_export:
                 new_map.name = layout_name_export
-            aprx.save()
+            save_project()
         except Exception as e:
             arcpy.AddWarning(f'Could not export .mapx: {e}')
 
@@ -376,7 +407,7 @@ try:
     m.exportToMAPX(map_file_path)
     frame_map = aprx.importDocument(map_file_path)
     frame_map.name = f'Εικόνα_{n}_Map_1'
-    aprx.save()
+    save_project()
 
     mf = make_map_frame(lytn, frame_map, bl_x, bl_y, fw, fh, mf_name)
     if first_mf is None:

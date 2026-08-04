@@ -104,6 +104,26 @@ def make_map_frame(lyt, map_obj, ll_x_pt, ll_y_pt, w_pt, h_pt, name):
     return lyt.createMapFrame(polygon, map_obj, name)
 
 
+def save_project():
+    """
+    aprx.save(), guarded. A map with an empty name makes ArcGIS Pro throw when
+    the Layout pane builds its map drop-down - the name sort hits a null key.
+    The crash therefore fires whenever a layout view is opened, not at project
+    load. Refuse to persist that state instead of leaving it in the .aprx.
+
+    This does not remove an existing empty-named map or protect the current
+    session; it only stops the tool writing the condition to disk.
+    """
+    unnamed = [mp for mp in aprx.listMaps() if not (mp.name or '').strip()]
+    if unnamed:
+        msg = (f'Refusing to save: {len(unnamed)} map(s) have an empty name. '
+               'This crashes ArcGIS Pro when a layout view builds its map list. '
+               'Rename or delete them, then re-run.')
+        arcpy.AddError(msg)
+        raise RuntimeError(msg)
+    aprx.save()
+
+
 aprx = arcpy.mp.ArcGISProject('CURRENT')
 m = aprx.activeMap
 
@@ -134,6 +154,11 @@ layout_configs = []
 for i in range(num_layouts):
     base = 1 + i * PARAMS_PER_LAYOUT
     layout_name = arcpy.GetParameterAsText(base).strip()
+    if not layout_name:
+        arcpy.AddError(
+            f'Layout {i + 1} has no name - skipping. An unnamed layout produces an '
+            'unnamed map, which crashes ArcGIS Pro when the Layout pane builds its map list.')
+        continue
     layers_raw = arcpy.GetParameterAsText(base + 1)
     extent_raw = arcpy.GetParameterAsText(base + 2)
     transparent = arcpy.GetParameter(base + 3)
@@ -163,7 +188,7 @@ for existing_map in aprx.listMaps():
             existing_map.name in layout_names_set):
         arcpy.AddMessage(f'Deleting existing map: {existing_map.name}')
         aprx.deleteItem(existing_map)
-aprx.save()
+save_project()
 
 # --- Layout_0: ΔΙΑΧΡΟΝΙΚΗ ΠΑΡΟΥΣΙΑΣΗ ΓΕΩΤΕΜΑΧΙΟΥ ---
 try:
@@ -199,7 +224,7 @@ try:
         m.exportToMAPX(map_file_path)
         frame_map = aprx.importDocument(map_file_path)
         frame_map.name = f'Layout_0_Map_{idx + 1}'
-        aprx.save()
+        save_project()
 
         mf = make_map_frame(lyt0, frame_map, bl_x, bl_y, fw, fh, mf_name)
         if first_mf is None:
@@ -381,7 +406,7 @@ def create_layout_and_export(config, out_folder):
             new_map = aprx.importDocument(map_file_path)
             if new_map.name != layout_name:
                 new_map.name = layout_name
-            aprx.save()
+            save_project()
         except Exception as e:
             arcpy.AddWarning(f'Could not export .mapx: {e}')
 
