@@ -154,17 +154,19 @@ layout_configs = []
 for i in range(num_layouts):
     base = 1 + i * PARAMS_PER_LAYOUT
     layout_name = arcpy.GetParameterAsText(base).strip()
-    if not layout_name:
-        arcpy.AddError(
-            f'Layout {i + 1} has no name - skipping. An unnamed layout produces an '
-            'unnamed map, which crashes ArcGIS Pro when the Layout pane builds its map list.')
-        continue
     layers_raw = arcpy.GetParameterAsText(base + 1)
     extent_raw = arcpy.GetParameterAsText(base + 2)
     transparent = arcpy.GetParameter(base + 3)
     layer_list = [l.strip().strip("'") for l in layers_raw.split(';') if l.strip()]
+    # Unused layout slots are left blank, so this must be checked before the name.
     if not layer_list:
         arcpy.AddWarning(f'Layout "{layout_name}" has no layers defined - skipping.')
+        continue
+    if not layout_name:
+        arcpy.AddError(
+            f'Layout {i + 1} has layers but no name - skipping. An unnamed layout '
+            'produces an unnamed map, which crashes ArcGIS Pro when the Layout pane '
+            'builds its map list.')
         continue
     try:
         coords = [float(v) for v in extent_raw.split()[:4]]
