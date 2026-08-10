@@ -400,10 +400,16 @@ def create_layout_and_export(config, out_folder):
             except Exception as e:
                 arcpy.AddWarning(f'Legend error: {e}')
 
+        # Colons are legal in a layout name but not in a Windows file name, where
+        # they are read as an alternate data stream separator. Only the file names
+        # are sanitised - the map keeps the raw name, which is what the cleanup
+        # pass at the top of the script matches on.
+        layout_name_export = layout_name.replace(':', '_')
+
         # Export .mapx
         try:
             arcpy.AddMessage('Exporting .mapx ...')
-            map_file_path = os.path.join(out_folder, f'{layout_name}_Theme.mapx')
+            map_file_path = os.path.join(out_folder, f'{layout_name_export}_Theme.mapx')
             m.exportToMAPX(map_file_path)
             new_map = aprx.importDocument(map_file_path)
             if new_map.name != layout_name:
@@ -414,14 +420,14 @@ def create_layout_and_export(config, out_folder):
 
         # Export PNG
         try:
-            png_path = os.path.join(out_folder, f'{layout_name}.png')
+            png_path = os.path.join(out_folder, f'{layout_name_export}.png')
             lyt.exportToPNG(png_path, resolution=300, transparent_background=transparent)
             arcpy.AddMessage(f'PNG exported: {png_path}')
         except Exception as e:
             arcpy.AddWarning(f'PNG export error: {e}')
 
         try:
-            pagx_path = os.path.join(out_folder, f'{layout_name}.pagx')
+            pagx_path = os.path.join(out_folder, f'{layout_name_export}.pagx')
             lyt.exportToPAGX(pagx_path)
             arcpy.AddMessage(f'PAGX exported: {pagx_path}')
         except Exception as e:

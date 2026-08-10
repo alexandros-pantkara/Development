@@ -355,7 +355,7 @@ def create_layout_and_export(config, out_folder):
             arcpy.AddWarning(f'PNG export error: {e}')
 
         try:
-            pagx_path = os.path.join(out_folder, f'{layout_name}.pagx')
+            pagx_path = os.path.join(out_folder, f'{layout_name_export}.pagx')
             lyt.exportToPAGX(pagx_path)
             arcpy.AddMessage(f'PAGX exported: {pagx_path}')
         except Exception as e:
