@@ -75,8 +75,8 @@ To run a tool, simply double click on it, and the input dialogue window will app
 ## Overview of the tools' functionality
 
 **Parcel tools**
--Convert from CAD: Converts a .dxf CAD file into a Geodatabase Feature class, which is the appropriate format for analysis within GIS.
--Symmarize Polygons (Intersect): Intersects main parcel (ΓΕΩΤΕΜΑΧΙΟ) with forest cover map and summarizes contained forest cover categories. Computes ΕΠΙΔΙΚΟ ΤΜΗΜΑ based on forest cover map classes. 
+- Convert from CAD: Converts a .dxf CAD file into a Geodatabase Feature class, which is the appropriate format for analysis within GIS.
+- Symmarize Polygons (Intersect): Intersects main parcel (ΓΕΩΤΕΜΑΧΙΟ) with forest cover map and summarizes contained forest cover categories. Computes ΕΠΙΔΙΚΟ ΤΜΗΜΑ based on forest cover map classes. 
 
 **Layouts**
 - Generate Layouts_DA (Δασωμένος Αγρός): Given some input layers, produces the appropriate layouts for Δασωμένος Αγρός cases. Loops through the input layers and generates the required layouts. It also generates map templates so that the layouts can be revisited later and edited manually. 
