@@ -4,12 +4,20 @@ import os
 # 1. Get input parameters
 input_polygon_features = arcpy.GetParameterAsText(0)  # Area of Interest (Polygon Layer)
 input_catalog_features = arcpy.GetParameterAsText(1)  # Raster Catalog (Polygon Layer)
+buffer_distance = (arcpy.GetParameterAsText(2) or "").strip()  # Search buffer
+
+# The parameter may arrive as a linear unit ("300 Meters") or as a bare number,
+# which is taken to mean metres. An empty value keeps the previous fixed distance.
+if not buffer_distance:
+    buffer_distance = "300 Meters"
+elif buffer_distance.replace(",", ".", 1).replace(".", "", 1).isdigit():
+    buffer_distance = f'{buffer_distance.replace(",", ".", 1)} Meters'
 
 # Buffer
 arcpy.analysis.Buffer(
     in_features=input_polygon_features,
     out_feature_class=r"memory\ΓΕΩΤΕΜΑΧΙΟ_Buffer",
-    buffer_distance_or_field="300 Meters",
+    buffer_distance_or_field=buffer_distance,
     line_side="FULL",
     line_end_type="ROUND",
     dissolve_option="NONE",
@@ -17,7 +25,7 @@ arcpy.analysis.Buffer(
     method="PLANAR"
 )
 
-arcpy.AddMessage("Buffer created: 300m around input polygons")
+arcpy.AddMessage(f"Buffer created: {buffer_distance} around input polygons")
 
 # 2. Setup Map and Group Layer
 aprx = arcpy.mp.ArcGISProject("CURRENT")

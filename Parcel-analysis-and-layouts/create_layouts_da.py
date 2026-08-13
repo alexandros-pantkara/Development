@@ -415,6 +415,18 @@ def create_layout_and_export(config, out_folder):
             if new_map.name != layout_name:
                 new_map.name = layout_name
             save_project()
+
+            # Point the frame at this layout's own map copy. Without this every
+            # frame keeps looking at the live active map, which is reconfigured
+            # for the next layout - so a layout reopened later shows the wrong
+            # state. Swapping the map resets the camera, so re-apply the extent.
+            try:
+                mf.map = new_map
+                if extent:
+                    mf.camera.setExtent(extent)
+                arcpy.AddMessage(f'Map frame now points at map "{new_map.name}".')
+            except Exception as e:
+                arcpy.AddWarning(f'Could not point the map frame at "{new_map.name}": {e}')
         except Exception as e:
             arcpy.AddWarning(f'Could not export .mapx: {e}')
 

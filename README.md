@@ -137,7 +137,7 @@ Things that are easy to get wrong, or that the tool dialogue does not tell you. 
 ### Other
 
 **Identify Rasters creates a new `Visible Layers` group every time it runs.** Run it twice and you have two groups with the same name, which makes the layout tools ambiguous about which one you mean. Delete the old one first.
-  - It needs a `filepath` field on the image catalogue, and it searches a fixed 300 m buffer around the input.
+  - It needs a `filepath` field on the image catalogue. The search buffer around the input defaults to 300 m and can be changed in the tool dialogue; a plain number is read as metres.
   - The date subgroups it builds come from the folder names on disk, which is also where the layout captions get their years.
 
 **Layer Coordinates to Table** refuses to run on anything that is not EPSG:2100.
