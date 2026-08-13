@@ -1,3 +1,6 @@
+# Google Drive for Desktop upload staging folder
+.tmp.driveupload/
+
 /legacy/Parcel analysis and layouts.atbx
 other-tools/.ipynb_checkpoints/Check map and layout names-checkpoint.ipynb
 qgis-tools/dummy data/Image_catalog.cpg
