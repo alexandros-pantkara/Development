@@ -380,6 +380,8 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
             except Exception as e:
                 arcpy.AddWarning(f"BG caption error: {e}")
 
+    new_map = None
+
     try:
         map_file_path = os.path.join(out_folder, f'{safe_title}.mapx')
         arcpy.AddMessage(f"Exporting .mapx → {map_file_path}")
@@ -388,11 +390,22 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
         if new_map.name != safe_title:
             new_map.name = safe_title
         aprx.save()
+    except Exception as e:
+        arcpy.AddWarning(f".mapx export error: {e}")
 
-        # Point the frame at this layout's own map copy. Without this every
-        # frame keeps looking at the live active map, which is reconfigured for
-        # the next layout - so a layout reopened later shows the wrong state.
-        # Swapping the map resets the camera, so re-apply the extent.
+    # Export PNG. This renders while the frame still points at the live map,
+    # which is known to draw correctly - the frame is repointed afterwards.
+    try:
+        png_path = os.path.join(out_folder, f'{safe_title}.png')
+        lyt.exportToPNG(png_path, resolution=300, transparent_background=transparent)
+        arcpy.AddMessage(f"PNG exported → {png_path}")
+    except Exception as e:
+        arcpy.AddWarning(f"PNG export error: {e}")
+
+    # Point the frame at this layout's own map copy, so the layout still shows
+    # the right state when it is reopened later. Swapping the map resets the
+    # camera, so re-apply the extent.
+    if new_map is not None:
         try:
             mf.map = new_map
             if layout_extent:
@@ -400,15 +413,6 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
             arcpy.AddMessage(f'Map frame now points at map "{new_map.name}".')
         except Exception as e:
             arcpy.AddWarning(f'Could not point the map frame at "{new_map.name}": {e}')
-    except Exception as e:
-        arcpy.AddWarning(f".mapx export error: {e}")
-
-    try:
-        png_path = os.path.join(out_folder, f'{safe_title}.png')
-        lyt.exportToPNG(png_path, resolution=300, transparent_background=transparent)
-        arcpy.AddMessage(f"PNG exported → {png_path}")
-    except Exception as e:
-        arcpy.AddWarning(f"PNG export error: {e}")
 
     try:
         pagx_path = os.path.join(out_folder, f'{safe_title}.pagx')
