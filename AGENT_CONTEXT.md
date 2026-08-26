@@ -86,16 +86,19 @@ Note the map name matching the layout name is also what makes the Map drop-down 
 
 ---
 
-## 6. Work in progress — NOT verified
+## 6. Export order in the layout scripts — do not rearrange
 
-**Map frames pointing at their own maps.** Each layout exports a `.mapx` snapshot and imports it as a new map, but historically every frame stayed bound to the live active map, which is then reconfigured for the next layout. Reopening a layout showed the wrong state, and the parcel name reverted when the run restored it. The `Layout_0` / `Εικόνα_N` multi-frame blocks already did this correctly and were the model.
+The order of operations at the end of each layout is load-bearing and was arrived at by fixing a real regression. It is:
 
-`mf.map = new_map` plus a re-applied extent was added to all three scripts. **This is unverified and had one regression already:** placing the repoint before the PNG export caused the PNG to render from the copied map, and the raster did not draw. The order is now **MAPX → PNG → repoint → PAGX**, so the PNG still renders from the live map.
+**MAPX → PNG → layered PDF → repoint the map frame → PAGX**, then the combined PDF once every layout is done.
 
-At the time of writing the user had not yet confirmed the re-run. If the raster is still missing:
+**Why the repoint exists.** Each layout exports a `.mapx` snapshot and imports it as a new map, but every frame used to stay bound to the live active map, which is then reconfigured for the next layout. Reopening a layout showed the wrong state, and the parcel name reverted when the run restored it. `mf.map = new_map` plus a re-applied extent fixes that. The `Layout_0` / `Εικόνα_N` multi-frame blocks already worked this way and were the model.
 
-- Raster **back in the PNG** → the reorder fixed it, done.
-- PNG fine but the **layout on screen** has no raster → the copied map itself is the problem, i.e. the raster is not surviving the `.mapx` round-trip. Diagnose by opening the map object directly from the Project pane and checking whether the raster layer is present, ticked and not broken. That would mean abandoning the repoint in favour of restructuring so the frame is created against `new_map` from the start (create map → create layout → create frame against the new map → extent → surrounds → exports).
+**Why the repoint must come after the raster exports.** It was first placed *before* the PNG export, which made the PNG render from the copied map — and the raster did not draw. Moving it after fixed it. Anything that renders (PNG, PDF) must happen while the frame still points at the live map; only the PAGX, which just serialises the layout, comes after.
+
+Verified working on real runs in Pro as of 2026-08-26: rasters draw, both PDFs export, frames point at their own maps.
+
+If a raster ever goes missing from an export again, the first thing to check is whether something moved ahead of the repoint.
 
 ---
 

@@ -113,7 +113,11 @@ Things that are easy to get wrong, or that the tool dialogue does not tell you. 
 
 **DA and PROD delete every layout in the project** before they start, not only the ones they are about to make. Any layout you built by hand will be lost. PROD_Dated is the exception: it only replaces layouts whose names it is going to reuse.
 
-**The layout name is used for three things** — the caption printed on the page, the name of the layout in the project, and the names of the exported `.mapx`, `.png` and `.pagx` files. Colons are replaced with `_` in the file names only, so the caption keeps reading `Εικόνα 3: …` while the file on disk is `Εικόνα 3_ …`. Leaving a layout slot completely empty is fine and is skipped; giving it layers but no name is an error.
+**The layout name is used for three things** — the caption printed on the page, the name of the layout in the project, and the names of the exported `.mapx`, `.png`, `.pdf` and `.pagx` files. Colons are replaced with `_` in the file names only, so the caption keeps reading `Εικόνα 3: …` while the file on disk is `Εικόνα 3_ …`. Leaving a layout slot completely empty is fine and is skipped; giving it layers but no name is an error.
+
+**Each layout produces two kinds of PDF.** A per-layout `.pdf` exported next to the `.png`, which keeps the map layers so they can be switched on and off in Acrobat; and, once every layout is finished, a single `All layouts_<project>.pdf` in the same folder that bundles the PNGs into one flat multi-page document for sending on. The project part of that name comes from the `.aprx` file name. Transparent layouts are left out of the bundle, since they are overlays meant for pasting into other documents.
+
+**Each layout keeps its own copy of the map.** After a layout is exported, its map frame is pointed at the map that was saved with it, rather than at the live map that the tools keep reconfiguring. That is what allows a layout to be reopened later and still look the way it was printed. It also means the parcel keeps the name ΓΕΩΤΕΜΑΧΙΟ in the reopened layout instead of reverting to the source layer name.
 
 **Map surrounds come from the project's Favorites style.** The north arrow, scale bar, legend and text styles are taken from whatever sits in Favorites, by position. If Favorites is empty or arranged differently in another project, those elements are quietly skipped with a warning. The logo is looked up on a relative path, so it may also be missing depending on where ArcGIS is running from.
 

@@ -36,6 +36,12 @@ FOLDERS_DICT = {
 aprx = arcpy.mp.ArcGISProject("CURRENT")
 m    = aprx.activeMap
 
+# PNGs gathered for the combined multi-page PDF, in the order the layouts are
+# created. Transparent layouts are overlays for other documents, so they are
+# deliberately left out.
+combined_png_paths = []
+project_name = os.path.splitext(os.path.basename(aprx.filePath))[0] if aprx.filePath else 'project'
+
 # ─── Helpers ────────────────────────────────────────────────────────────────────
 def find_layer(map_obj, name):
     name = name.strip("'")
@@ -198,6 +204,53 @@ def restore_parcel_layer(lyr, original_name):
         arcpy.AddMessage(f"Layer name restored to '{original_name}'.")
     except Exception as e:
         arcpy.AddWarning(f"Layer name restore failed: {e}")
+
+def combine_pngs_to_pdf(png_paths, out_pdf_path):
+    """
+    Combines the exported PNGs into a single multi-page PDF, one page per image.
+    Uses Pillow, which ships with the ArcGIS Pro Python environment. This is a
+    plain bundle for sending on - the per-layout PDFs are the ones with layers.
+    """
+    if not png_paths:
+        arcpy.AddWarning('No PNGs were exported - skipping the combined PDF.')
+        return
+    try:
+        from PIL import Image
+    except ImportError:
+        arcpy.AddWarning('Pillow is not available - skipping the combined PDF.')
+        return
+
+    pages = []
+    for path in png_paths:
+        if not os.path.exists(path):
+            arcpy.AddWarning(f'Missing PNG, left out of the combined PDF: {path}')
+            continue
+        try:
+            with Image.open(path) as src:
+                # PDF pages have no alpha channel, so flatten onto white.
+                if src.mode in ('RGBA', 'LA', 'P'):
+                    rgba = src.convert('RGBA')
+                    page = Image.new('RGB', rgba.size, (255, 255, 255))
+                    page.paste(rgba, mask=rgba.split()[-1])
+                else:
+                    page = src.convert('RGB')
+            pages.append(page)
+        except Exception as e:
+            arcpy.AddWarning(f'Could not read "{path}" for the combined PDF: {e}')
+
+    if not pages:
+        arcpy.AddWarning('No readable PNGs - skipping the combined PDF.')
+        return
+
+    try:
+        # The PNGs are exported at 300 dpi; matching that here keeps the PDF
+        # pages at their true A4 size instead of defaulting to 72 dpi.
+        pages[0].save(out_pdf_path, 'PDF', resolution=300.0,
+                      save_all=True, append_images=pages[1:])
+        arcpy.AddMessage(f'Combined PDF exported ({len(pages)} page(s)): {out_pdf_path}')
+    except Exception as e:
+        arcpy.AddWarning(f'Could not write the combined PDF: {e}')
+
 # ─── Parse inputs ───────────────────────────────────────────────────────────────
 main_layer_names = [n.strip().strip("'") for n in main_layers_raw.split(';') if n.strip()]
 
@@ -399,8 +452,19 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
         png_path = os.path.join(out_folder, f'{safe_title}.png')
         lyt.exportToPNG(png_path, resolution=300, transparent_background=transparent)
         arcpy.AddMessage(f"PNG exported → {png_path}")
+        if not transparent:
+            combined_png_paths.append(png_path)
     except Exception as e:
         arcpy.AddWarning(f"PNG export error: {e}")
+
+    # Export the layered PDF, also while the frame still points at the live map.
+    try:
+        pdf_path = os.path.join(out_folder, f'{safe_title}.pdf')
+        lyt.exportToPDF(pdf_path, resolution=300, layers_attributes='LAYERS_ONLY',
+                        keep_layout_background=not transparent)
+        arcpy.AddMessage(f"PDF exported → {pdf_path}")
+    except Exception as e:
+        arcpy.AddWarning(f"PDF export error: {e}")
 
     # Point the frame at this layout's own map copy, so the layout still shows
     # the right state when it is reopened later. Swapping the map resets the
@@ -441,6 +505,9 @@ finally:
     if PARCEL_DISPLAY_NAME in main_layer_names:
         main_layer_names[main_layer_names.index(PARCEL_DISPLAY_NAME)] = parcel_original_name
     restore_layer_order(m, original_top_level_order)
+
+combine_pngs_to_pdf(combined_png_paths,
+                    os.path.join(out_folder, f'All layouts_{project_name}.pdf'))
 
 arcpy.AddMessage("Finished.")
 os.startfile(out_folder)
