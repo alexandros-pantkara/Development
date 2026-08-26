@@ -251,6 +251,40 @@ def combine_pngs_to_pdf(png_paths, out_pdf_path):
     except Exception as e:
         arcpy.AddWarning(f'Could not write the combined PDF: {e}')
 
+# Style items are looked up by name rather than by position. The names are the
+# ones in 'template data/pantkara.stylx'; Favorites is searched first because
+# that is where they currently live in the projects.
+STYLE_SOURCES  = ('Favorites', 'pantkara')
+STYLE_TITLE    = ('TEXT', 'Text 1')
+STYLE_CAPTION  = ('TEXT', 'Text_background')
+STYLE_NORTH    = ('NORTH_ARROW', 'North Arrow')
+STYLE_SCALEBAR = ('SCALE_BAR', 'P_Scalebar')
+STYLE_LEGEND   = ('LEGEND', 'Legend_1')
+
+
+def get_style_item(style_class, item_name):
+    """
+    Returns the named style item, searching STYLE_SOURCES in order. Returns
+    None rather than raising, so a missing style reports which item is missing
+    instead of failing with 'list index out of range'.
+    """
+    for style in STYLE_SOURCES:
+        try:
+            items = aprx.listStyleItems(style=style, style_class=style_class)
+        except Exception:
+            continue
+        # Match the name exactly - the style holds both 'North Arrow' and
+        # 'North Arrow 1', which a wildcard search would not separate.
+        for item in items:
+            if getattr(item, 'name', None) == item_name:
+                return item
+
+    arcpy.AddWarning(
+        f'Style item "{item_name}" ({style_class}) not found in '
+        f'{" or ".join(STYLE_SOURCES)} - that element will be skipped.'
+    )
+    return None
+
 # ─── Parse inputs ───────────────────────────────────────────────────────────────
 main_layer_names = [n.strip().strip("'") for n in main_layers_raw.split(';') if n.strip()]
 
@@ -354,7 +388,7 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
             arcpy.AddWarning(f"Logo error: {e}")
 
         try:
-            na_style = aprx.listStyleItems(style='Favorites', style_class='NORTH_ARROW')[0]
+            na_style = get_style_item(*STYLE_NORTH)
             na = lyt.createMapSurroundElement(
                 arcpy.Point(815, 514), 'NORTH_ARROW', mf, na_style, 'North Arrow')
             na.elementWidth = 30
@@ -362,7 +396,7 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
             arcpy.AddWarning(f"North Arrow error: {e}")
 
         try:
-            sb_style = aprx.listStyleItems(style='Favorites', style_class='SCALE_BAR')[0]
+            sb_style = get_style_item(*STYLE_SCALEBAR)
             sb = lyt.createMapSurroundElement(
                 arcpy.Point(50, 5), 'SCALE_BAR', mf, sb_style, 'Scale Bar')
             sb.elementWidth = 200
@@ -372,7 +406,7 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
 
         try:
             raster_names_set = {lyr.name for lyr in m.listLayers() if lyr.isRasterLayer}
-            leg_style = aprx.listStyleItems(style='Favorites', style_class='LEGEND')[0]
+            leg_style = get_style_item(*STYLE_LEGEND)
             leg = lyt.createMapSurroundElement(
                 arcpy.Point(61, 117), 'LEGEND', mf, leg_style, 'Legend')
             leg.elementWidth  = 150
@@ -399,7 +433,7 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
             arcpy.AddWarning(f"Legend error: {e}")
 
         try:
-            text_style    = aprx.listStyleItems(style='Favorites', style_class='TEXT')[0]
+            text_style    = get_style_item(*STYLE_TITLE)
             page_center_x = lyt.pageWidth / 2
             txt_elem = aprx.createTextElement(
                 lyt,
@@ -415,7 +449,7 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
 
         if bg_caption:
             try:
-                text_style = aprx.listStyleItems(style='Favorites', style_class='TEXT')[1]
+                text_style = get_style_item(*STYLE_CAPTION)
                 mf.setAnchor("BOTTOM_LEFT_CORNER")
                 mf_right  = mf.elementPositionX + mf.elementWidth
                 mf_bottom = mf.elementPositionY

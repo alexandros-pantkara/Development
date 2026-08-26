@@ -171,6 +171,41 @@ def combine_pngs_to_pdf(png_paths, out_pdf_path):
         arcpy.AddWarning(f'Could not write the combined PDF: {e}')
 
 
+# Style items are looked up by name rather than by position. The names are the
+# ones in 'template data/pantkara.stylx'; Favorites is searched first because
+# that is where they currently live in the projects.
+STYLE_SOURCES  = ('Favorites', 'pantkara')
+STYLE_TITLE    = ('TEXT', 'Text 1')
+STYLE_CAPTION  = ('TEXT', 'Text_background')
+STYLE_NORTH    = ('NORTH_ARROW', 'North Arrow')
+STYLE_SCALEBAR = ('SCALE_BAR', 'P_Scalebar')
+STYLE_LEGEND   = ('LEGEND', 'Legend_1')
+
+
+def get_style_item(style_class, item_name):
+    """
+    Returns the named style item, searching STYLE_SOURCES in order. Returns
+    None rather than raising, so a missing style reports which item is missing
+    instead of failing with 'list index out of range'.
+    """
+    for style in STYLE_SOURCES:
+        try:
+            items = aprx.listStyleItems(style=style, style_class=style_class)
+        except Exception:
+            continue
+        # Match the name exactly - the style holds both 'North Arrow' and
+        # 'North Arrow 1', which a wildcard search would not separate.
+        for item in items:
+            if getattr(item, 'name', None) == item_name:
+                return item
+
+    arcpy.AddWarning(
+        f'Style item "{item_name}" ({style_class}) not found in '
+        f'{" or ".join(STYLE_SOURCES)} - that element will be skipped.'
+    )
+    return None
+
+
 aprx = arcpy.mp.ArcGISProject('CURRENT')
 m = aprx.activeMap
 
@@ -324,7 +359,7 @@ def create_layout_and_export(config, out_folder):
                 arcpy.AddWarning(f'Logo error: {e}')
 
             try:
-                na_style = aprx.listStyleItems(style='Favorites', style_class='NORTH_ARROW')[0]
+                na_style = get_style_item(*STYLE_NORTH)
                 na = lyt.createMapSurroundElement(
                     arcpy.Point(755, 500), 'NORTH_ARROW', mf, na_style, 'North Arrow')
                 na.elementWidth = 30
@@ -332,7 +367,7 @@ def create_layout_and_export(config, out_folder):
                 arcpy.AddWarning(f'North Arrow error: {e}')
 
             try:
-                sb_style = aprx.listStyleItems(style='Favorites', style_class='SCALE_BAR')[0]
+                sb_style = get_style_item(*STYLE_SCALEBAR)
                 sb = lyt.createMapSurroundElement(
                     arcpy.Point(50, 5), 'SCALE_BAR', mf, sb_style, 'Scale Bar')
                 sb.elementWidth = 200
@@ -341,7 +376,7 @@ def create_layout_and_export(config, out_folder):
                 arcpy.AddWarning(f'Scale Bar error: {e}')
 
             try:
-                text_style = aprx.listStyleItems(style='Favorites', style_class='TEXT')[0]
+                text_style = get_style_item(*STYLE_TITLE)
                 page_center_x = lyt.pageWidth / 2
                 txt_elem = aprx.createTextElement(
                     lyt,
@@ -358,7 +393,7 @@ def create_layout_and_export(config, out_folder):
                 raster_names = {lyr.name for lyr in m.listLayers() if lyr.isRasterLayer}
                 arcpy.AddMessage(
                     'Excluding from legend (rasters): ' + (', '.join(raster_names) if raster_names else 'None'))
-                leg_style = aprx.listStyleItems(style='Favorites', style_class='LEGEND')[0]
+                leg_style = get_style_item(*STYLE_LEGEND)
                 leg = lyt.createMapSurroundElement(
                     arcpy.Point(61, 117), 'LEGEND', mf, leg_style, 'Legend')
                 leg.elementWidth = 150
@@ -465,7 +500,7 @@ try:
     lytn = aprx.createLayout(PAGE_W, PAGE_H, 'POINT', f'Εικόνα: {n}: Ενδεικτικές Φωτογραφίες')
 
     try:
-        text_style = aprx.listStyleItems(style='Favorites', style_class='TEXT')[0]
+        text_style = get_style_item(*STYLE_TITLE)
         aprx.createTextElement(lytn, geometry=arcpy.Point(304, 20), text_type='POINT',
                                text=f'Εικόνα: {n}: Ενδεικτικές Φωτογραφίες',
                                style_item=text_style)
@@ -501,7 +536,7 @@ try:
 
     # Single north arrow top-right of paper, anchored to frame 1
     try:
-        na_style = aprx.listStyleItems(style='Favorites', style_class='NORTH_ARROW')[0]
+        na_style = get_style_item(*STYLE_NORTH)
         na = lytn.createMapSurroundElement(
             arcpy.Point(815, 514), 'NORTH_ARROW',
             first_mf, na_style, 'North Arrow')
