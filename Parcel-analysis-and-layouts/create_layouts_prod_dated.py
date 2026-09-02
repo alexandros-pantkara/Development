@@ -40,6 +40,7 @@ m    = aprx.activeMap
 # created. Transparent layouts are overlays for other documents, so they are
 # deliberately left out.
 combined_png_paths = []
+combined_pdf_paths = []
 project_name = os.path.splitext(os.path.basename(aprx.filePath))[0] if aprx.filePath else 'project'
 
 # ─── Helpers ────────────────────────────────────────────────────────────────────
@@ -251,6 +252,50 @@ def combine_pngs_to_pdf(png_paths, out_pdf_path):
     except Exception as e:
         arcpy.AddWarning(f'Could not write the combined PDF: {e}')
 
+def combine_pdfs_to_layered_pdf(pdf_paths, out_pdf_path):
+    """
+    Merges the per-layout PDFs into one multi-page document, keeping each
+    page's layers and georeferencing. Verified against ArcGIS Pro: every page
+    contributes its own full layer tree, so pages toggle independently.
+    """
+    if not pdf_paths:
+        arcpy.AddWarning('No per-layout PDFs were exported - skipping the layered PDF.')
+        return
+
+    existing = []
+    for path in pdf_paths:
+        if os.path.exists(path):
+            existing.append(path)
+        else:
+            arcpy.AddWarning(f'Missing PDF, left out of the layered PDF: {path}')
+
+    if not existing:
+        arcpy.AddWarning('No readable per-layout PDFs - skipping the layered PDF.')
+        return
+
+    pdf_doc = None
+    try:
+        # PDFDocumentCreate will not write over a file that already exists.
+        if os.path.exists(out_pdf_path):
+            os.remove(out_pdf_path)
+
+        pdf_doc = arcpy.mp.PDFDocumentCreate(out_pdf_path)
+        for path in existing:
+            pdf_doc.appendPages(path)
+        pdf_doc.saveAndClose()
+        pdf_doc = None
+        arcpy.AddMessage(
+            f'Layered PDF exported ({len(existing)} page(s)): {out_pdf_path}')
+    except Exception as e:
+        arcpy.AddWarning(f'Could not write the layered PDF: {e}')
+    finally:
+        # Release the file lock even if the merge failed part way through.
+        if pdf_doc is not None:
+            try:
+                pdf_doc.saveAndClose()
+            except Exception:
+                pass
+
 # Style items are looked up by name rather than by position. The names are the
 # ones in 'template data/pantkara.stylx'; Favorites is searched first because
 # that is where they currently live in the projects.
@@ -350,7 +395,7 @@ for map_ex in aprx.listMaps():
 aprx.save()
 
 # ─── Layout creation function ────────────────────────────────────────────────────
-def create_layout(title, raster_names, bg_caption, transparent=False):
+def create_layout(title, raster_names, bg_caption, page_number, transparent=False):
     safe_title = title.replace(':', '_')
     arcpy.AddMessage(f"Creating: '{title}' (transparent={transparent})")
 
@@ -359,14 +404,18 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
     ll_x, ll_y = MF_MARGIN, MF_MARGIN
     ur_x, ur_y = PAGE_W - MF_MARGIN, PAGE_H - MF_MARGIN
     coords = [[ll_x, ll_y], [ur_x, ll_y], [ur_x, ur_y], [ll_x, ur_y], [ll_x, ll_y]]
+    # The frame name becomes the folder name for this page in the layered PDF's
+    # layer panel, so it is numbered to tell the pages apart. Anything that
+    # looks the frame up by name must use this same string.
+    frame_name = f'Main Map (page {page_number})'
     mf = lyt.createMapFrame(
-        arcpy.Polygon(arcpy.Array([arcpy.Point(*xy) for xy in coords])), m, 'Main Map')
+        arcpy.Polygon(arcpy.Array([arcpy.Point(*xy) for xy in coords])), m, frame_name)
 
     if transparent:
         try:
             lyt_cim = lyt.getDefinition('V3')
             for elm in lyt_cim.elements:
-                if elm.name == 'Main Map':
+                if elm.name == frame_name:
                     elm.graphicFrame.borderSymbol = None
             lyt.setDefinition(lyt_cim)
         except Exception as e:
@@ -497,6 +546,8 @@ def create_layout(title, raster_names, bg_caption, transparent=False):
         lyt.exportToPDF(pdf_path, resolution=300, layers_attributes='LAYERS_ONLY',
                         keep_layout_background=not transparent)
         arcpy.AddMessage(f"PDF exported → {pdf_path}")
+        if not transparent:
+            combined_pdf_paths.append(pdf_path)
     except Exception as e:
         arcpy.AddWarning(f"PDF export error: {e}")
 
@@ -529,10 +580,12 @@ if parcel_layer and parcel_original_name in main_layer_names:
     main_layer_names[main_layer_names.index(parcel_original_name)] = PARCEL_DISPLAY_NAME
 
 try:
-    for cfg in layout_configs:
-        create_layout(cfg['title'], cfg['raster_names'], cfg['bg_caption'], transparent=False)
+    for page_number, cfg in enumerate(layout_configs, start=1):
+        create_layout(cfg['title'], cfg['raster_names'], cfg['bg_caption'],
+                      page_number, transparent=False)
 
-    create_layout(transparent_title, raster_names=[], bg_caption=None, transparent=True)
+    create_layout(transparent_title, raster_names=[], bg_caption=None,
+                  page_number=len(layout_configs) + 1, transparent=True)
 
 finally:
     restore_parcel_layer(parcel_layer, parcel_original_name)
@@ -542,6 +595,9 @@ finally:
 
 combine_pngs_to_pdf(combined_png_paths,
                     os.path.join(out_folder, f'All layouts_{project_name}.pdf'))
+
+combine_pdfs_to_layered_pdf(combined_pdf_paths,
+                            os.path.join(out_folder, f'All layouts_{project_name}_layered.pdf'))
 
 arcpy.AddMessage("Finished.")
 os.startfile(out_folder)
