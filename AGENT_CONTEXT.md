@@ -81,7 +81,7 @@ Note the map name matching the layout name is also what makes the Map drop-down 
 - **`summarize_polygons.py` applies its field filters cumulatively**, not independently, so the order of the input fields changes the result. There is a comment acknowledging this; it was left as-is on purpose.
 - **DA and prod delete *every* layout in the project** before starting, not just the ones they create. prod_dated only deletes layouts whose names it will reuse.
 - **`LOGO_PATH` is a relative path** (`./template data/logo.png`) in all three layout scripts, so the logo depends on the process working directory. `summarize_polygons.py` does it correctly with `os.path.dirname(os.path.abspath(__file__))`.
-- **Map surrounds come from the project's Favorites style by index** (`listStyleItems(style='Favorites', ...)[0]` / `[1]`). A project whose Favorites is empty or ordered differently silently loses its north arrow, scale bar, legend or text styling.
+- **Map surrounds come from the project's Favorites style.** They used to be fetched by index (`listStyleItems(...)[0]` / `[1]`), which meant a project whose Favorites was empty or ordered differently silently lost its north arrow, scale bar, legend or text styling. Now resolved by name — see §6.
 - **Layer visibility is never restored** after a run — only layer order is.
 
 ---
@@ -90,15 +90,46 @@ Note the map name matching the layout name is also what makes the Map drop-down 
 
 The order of operations at the end of each layout is load-bearing and was arrived at by fixing a real regression. It is:
 
-**MAPX → PNG → layered PDF → repoint the map frame → PAGX**, then the combined PDF once every layout is done.
+**MAPX → PNG → layered PDF → repoint the map frame → PAGX**, then both bundles once every layout is done.
 
 **Why the repoint exists.** Each layout exports a `.mapx` snapshot and imports it as a new map, but every frame used to stay bound to the live active map, which is then reconfigured for the next layout. Reopening a layout showed the wrong state, and the parcel name reverted when the run restored it. `mf.map = new_map` plus a re-applied extent fixes that. The `Layout_0` / `Εικόνα_N` multi-frame blocks already worked this way and were the model.
 
 **Why the repoint must come after the raster exports.** It was first placed *before* the PNG export, which made the PNG render from the copied map — and the raster did not draw. Moving it after fixed it. Anything that renders (PNG, PDF) must happen while the frame still points at the live map; only the PAGX, which just serialises the layout, comes after.
 
-Verified working on real runs in Pro as of 2026-08-26: rasters draw, both PDFs export, frames point at their own maps.
+Verified working on real runs in Pro as of 2026-08-26: rasters draw, the PDFs export, frames point at their own maps.
 
 If a raster ever goes missing from an export again, the first thing to check is whether something moved ahead of the repoint.
+
+### The two bundles
+
+Each run writes `All layouts_<project>.pdf` (flat, built from the PNGs with Pillow) and `All layouts_<project>_layered.pdf` (merges the per-layout PDFs with `arcpy.mp.PDFDocumentCreate` + `appendPages`). Both were asked for deliberately — the flat one is the light copy to send on, the layered one keeps layers and georeferencing. Do not "simplify" by dropping either.
+
+`appendPages` was tested against real output before being adopted: each page keeps its **own full layer tree**, so pages toggle independently, and georeferencing survives (a geo-PDF marker count of 4 + 4 in became 8 out). Transparent layouts are excluded from both bundles.
+
+### Why map frames are named `Main Map (page N)`
+
+Every page of the layered bundle contributes a folder to Acrobat's layer panel named after its map frame. With every frame called `Main Map` the panel showed identical, indistinguishable folders. The frame name is now built once into a `frame_name` variable and reused by the transparent-border CIM check, which matches on `elm.name` — **the two must stay in sync**, because a mismatch silently leaves the border on transparent layouts rather than raising.
+
+Renaming was done pre-export on purpose. Editing the layer names in the finished PDF would mean rewriting optional-content group strings inside Flate-compressed object streams and rebuilding the xref table, and neither `pypdf` nor `pikepdf` ships with ArcGIS Pro. `PDFDocument` exposes only `updateDocProperties`, which cannot touch layer names.
+
+The numbering counts all layouts while the bundles hold only the non-transparent ones, so a transparent layout in the middle would make later labels run one page ahead. In practice it is always last.
+
+### Styles are resolved by name, not position
+
+`get_style_item(style_class, item_name)` searches `STYLE_SOURCES = ('Favorites', 'pantkara')` and matches the name exactly. It returns `None` and names the missing item rather than raising `IndexError`. The names — `Text 1`, `Text_background`, `North Arrow`, `P_Scalebar`, `Legend_1` — are the items in `template data/pantkara.stylx`, confirmed against a real project's Favorites. Exact matching matters because the style holds both `North Arrow` and `North Arrow 1`, which a wildcard would not separate. The `pantkara` fallback resolves to nothing until someone adds that `.stylx` to the project, which arcpy cannot do programmatically.
+
+---
+
+## 6b. The sharing tools
+
+Upload zips the geodatabase into a timestamped folder rather than copying the `.gdb` outright, and Download takes one of those `.zip` files and extracts it. Points that are deliberate:
+
+- **`.lock` files are excluded** from the archive; Pro leaves them behind in an open geodatabase.
+- **Zipping is direct, not via a temp copy.** That keeps it fast and needs no scratch space, at the cost of being a file-level snapshot — an edit session in progress could be caught mid-write. The tool prints a reminder to save edits. Switching to `arcpy.management.Copy` → zip → delete would be the safe-but-slow alternative.
+- **Download refuses to extract over an existing geodatabase** of the same name, because merging a zip into a live `.gdb` mixes old and new internal files and can leave it unreadable.
+- **The restore folder is named after the source upload**, not the download time, so a restored copy says which snapshot it came from.
+- **The geodatabase name derivation was a bug.** The old code took `Path(getattr(desc, 'path', ...)).stem`, but for a workspace `.path` is the *parent* folder, so a backup of `C:\proj\LAMPADAKIS.gdb` would have been named after `proj`. It now checks `dataType == 'Workspace'` and uses `catalogPath`.
+- Upload still copies the `.aprx` loose beside the zip; Download does not restore it. Known asymmetry, not yet addressed.
 
 ---
 

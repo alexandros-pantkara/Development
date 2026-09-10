@@ -89,8 +89,8 @@ To run a tool, simply double click on it, and the input dialogue window will app
 - Layer Coordinates to Table: Given an input vector layer, exports its coordinates to a Geodatabase Table 
 
 **Sharing**
-- Upload to Server: Copies the project and the geodatabase to a desired folder (usually a server folder, for backup)
-- Download from Server: Copies from server to local folder. 
+- Upload to Server: Zips the geodatabase and copies it, together with the project file, into a timestamped folder in a desired location (usually a server folder, for backup)
+- Download from Server: Takes one of those .zip files and extracts the geodatabase back to a local folder. 
 
 ## Tool considerations
 
@@ -115,11 +115,13 @@ Things that are easy to get wrong, or that the tool dialogue does not tell you. 
 
 **The layout name is used for three things** — the caption printed on the page, the name of the layout in the project, and the names of the exported `.mapx`, `.png`, `.pdf` and `.pagx` files. Colons are replaced with `_` in the file names only, so the caption keeps reading `Εικόνα 3: …` while the file on disk is `Εικόνα 3_ …`. Leaving a layout slot completely empty is fine and is skipped; giving it layers but no name is an error.
 
-**Each layout produces two kinds of PDF.** A per-layout `.pdf` exported next to the `.png`, which keeps the map layers so they can be switched on and off in Acrobat; and, once every layout is finished, a single `All layouts_<project>.pdf` in the same folder that bundles the PNGs into one flat multi-page document for sending on. The project part of that name comes from the `.aprx` file name. Transparent layouts are left out of the bundle, since they are overlays meant for pasting into other documents.
+**Each run produces three kinds of PDF.** A per-layout `.pdf` next to each `.png`, which keeps the map layers so they can be switched on and off in Acrobat. Then, once every layout is finished, two bundles in the same folder: `All layouts_<project>.pdf`, a flat multi-page document built from the PNGs and the lighter one to send on; and `All layouts_<project>_layered.pdf`, which merges the per-layout PDFs and keeps each page's layers and georeferencing, so it can be measured and located in Acrobat. The project part of those names comes from the `.aprx` file name. Transparent layouts are left out of both bundles, since they are overlays meant for pasting into other documents.
+
+**In the bundles, each page's map frame is named `Main Map (page 1)`, `(page 2)` and so on.** Without that, Acrobat's layer panel shows an identical `Main Map` folder for every page with no way to tell them apart. The numbering counts every layout while the bundles contain only the non-transparent ones, so a transparent layout placed in the middle of the sequence would leave later labels running one page ahead. Keeping the transparent layout last avoids that.
 
 **Each layout keeps its own copy of the map.** After a layout is exported, its map frame is pointed at the map that was saved with it, rather than at the live map that the tools keep reconfiguring. That is what allows a layout to be reopened later and still look the way it was printed. It also means the parcel keeps the name ΓΕΩΤΕΜΑΧΙΟ in the reopened layout instead of reverting to the source layer name.
 
-**Map surrounds come from the project's Favorites style.** The north arrow, scale bar, legend and text styles are taken from whatever sits in Favorites, by position. If Favorites is empty or arranged differently in another project, those elements are quietly skipped with a warning. The logo is looked up on a relative path, so it may also be missing depending on where ArcGIS is running from.
+**Map surrounds come from the project's Favorites style, looked up by name.** The north arrow (`North Arrow`), scale bar (`P_Scalebar`), legend (`Legend_1`) and the two text styles (`Text 1` for titles, `Text_background` for the backdrop caption) are matched by name, so reordering Favorites or adding a second legend cannot silently change which style a layout uses. If an item is missing the element is skipped and the message names which one. Those names are the items in `template data/pantkara.stylx` — on a new machine, add that style through **Project → Styles → Add** so the tools can find them. The logo is still looked up on a relative path, so it may be missing depending on where ArcGIS is running from.
 
 **Labels of a vector listed after a raster are switched off** for that layout only (DA and PROD), on the assumption that the raster covers it. For layers inside a group this is judged from the order you typed, which may no longer match the real draw order — so labels can be switched off on something that is not actually covered.
 
@@ -150,6 +152,10 @@ Things that are easy to get wrong, or that the tool dialogue does not tell you. 
 
 ### Sharing
 
-**Upload and Download are not symmetric.** Upload copies both the geodatabase and the `.aprx` project file; Download copies **only the geodatabase**. If you need the project itself back from the server, copy it by hand.
+**Upload zips the geodatabase.** Each run creates a folder named after the date and time, containing `<geodatabase>.zip` and a copy of the `.aprx`. Lock files left behind by the open ArcGIS session are excluded from the archive. The zip is taken from the files as they sit on disk, so **save any open edits before running it**, or an edit in progress can be caught half-written.
 
-Both write into a new timestamped folder every run, so the destination grows over time and old copies are never cleaned up.
+**Download takes the .zip, not the geodatabase.** Point it at one of those archives and it extracts the geodatabase into a subfolder named after the upload it came from, so you can tell which snapshot you restored. It refuses to extract over an existing geodatabase of the same name rather than mixing old and new files together, which can leave one unreadable — clear the folder or choose another if that happens.
+
+**The two are still not symmetric.** Upload sends the `.aprx` alongside the zip, but Download only restores the geodatabase. If you need the project file back, copy it by hand from the same folder.
+
+Uploads write a new timestamped folder every run, so the destination grows over time and old copies are never cleaned up.
