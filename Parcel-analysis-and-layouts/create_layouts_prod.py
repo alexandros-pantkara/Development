@@ -1,4 +1,5 @@
 import arcpy
+import arcpy.cim
 import os
 
 
@@ -216,6 +217,66 @@ def combine_pdfs_to_layered_pdf(pdf_paths, out_pdf_path):
                 pass
 
 
+def group_layout_elements(lyt, master_name, frame_name):
+    """
+    Wraps a layout's elements in a master group named after the layout, with
+    the surrounds gathered into a 'Cosmetics' subgroup. The PDF export mirrors
+    the layout's element tree, so this is what turns the layer panel into one
+    collapsible group per page instead of a flat list repeated for every page.
+
+    Two things this relies on, both established by probing a real project:
+      - arcpy has no grouping API, but arcpy.cim.CIMGroupElement can be built
+        directly, and only 'name' and 'elements' need setting.
+      - The CIM elements list runs in REVERSE display order, so the map frame
+        goes first (bottom of the drawing stack) and Cosmetics last (top).
+
+    Transparent layouts have no surrounds at all, so they simply get a master
+    group containing the frame.
+    """
+    COSMETIC_NAMES = ('Logo', 'North Arrow', 'Scale Bar', 'Legend')
+    try:
+        lyt_cim = lyt.getDefinition('V3')
+        elements = list(lyt_cim.elements or [])
+        if not elements:
+            return
+
+        by_name = {}
+        for elm in elements:
+            by_name.setdefault(getattr(elm, 'name', ''), elm)
+
+        frame = by_name.get(frame_name)
+        if frame is None:
+            arcpy.AddWarning(
+                f'Map frame "{frame_name}" not found - layout left ungrouped.')
+            return
+
+        cosmetics = [by_name[n] for n in COSMETIC_NAMES if n in by_name]
+        cosmetic_ids = {id(e) for e in cosmetics}
+        # Anything that is neither the frame nor a surround - the title text -
+        # stays at master level, between the frame and the Cosmetics group.
+        others = [e for e in elements
+                  if e is not frame and id(e) not in cosmetic_ids]
+
+        children = [frame] + others
+        if cosmetics:
+            inner = arcpy.cim.CIMGroupElement()
+            inner.name = 'Cosmetics'
+            inner.elements = cosmetics
+            children.append(inner)
+
+        master = arcpy.cim.CIMGroupElement()
+        master.name = master_name
+        master.elements = children
+
+        lyt_cim.elements = [master]
+        lyt.setDefinition(lyt_cim)
+        arcpy.AddMessage(
+            f'Grouped layout under "{master_name}" '
+            f'({len(cosmetics)} cosmetic element(s), {len(others)} at master level).')
+    except Exception as e:
+        arcpy.AddWarning(f'Could not group the layout elements: {e}')
+
+
 # Style items are looked up by name rather than by position. The names are the
 # ones in 'template data/pantkara.stylx'; Favorites is searched first because
 # that is where they currently live in the projects.
@@ -348,7 +409,7 @@ def create_layout_and_export(config, out_folder, page_number):
     # The frame name becomes the folder name for this page in the layered PDF's
     # layer panel, so it is numbered to tell the pages apart. Anything that
     # looks the frame up by name must use this same string.
-    frame_name = f'Main Map (page {page_number})'
+    frame_name = 'Main Map'
     mf = lyt.createMapFrame(mf_polygon, m, frame_name)
 
     if transparent:
@@ -404,7 +465,10 @@ def create_layout_and_export(config, out_folder, page_number):
 
         if not transparent:
             try:
-                aprx.createPictureElement(lyt, geometry=arcpy.Point(690, 30), path=LOGO_PATH)
+                logo = aprx.createPictureElement(lyt, geometry=arcpy.Point(690, 30), path=LOGO_PATH)
+                # Named explicitly so the grouping step can find it - a picture
+                # and a text element are both CIMGraphicElement in the CIM.
+                logo.name = 'Logo'
             except Exception as e:
                 arcpy.AddWarning(f'Logo error: {e}')
 
@@ -436,6 +500,7 @@ def create_layout_and_export(config, out_folder, page_number):
                     style_item=text_style)
                 txt_elem.setAnchor('TOP_MID_POINT')
                 txt_elem.elementPositionX = page_center_x
+                txt_elem.name = 'Title'
             except Exception as e:
                 arcpy.AddWarning(f'Text element error: {e}')
 
@@ -469,6 +534,20 @@ def create_layout_and_export(config, out_folder, page_number):
                 leg.elementPositionY = MF_MARGIN + 10 + leg.elementHeight
             except Exception as e:
                 arcpy.AddWarning(f'Legend error: {e}')
+
+        # Group everything into one per-page block before any export, so the
+        # layered PDF gets a collapsible group per page.
+        group_layout_elements(lyt, layout_name, frame_name)
+
+        # The frame now sits inside the group, so re-acquire it - the object
+        # from createMapFrame may no longer be attached after setDefinition,
+        # and the repoint further down needs a live one.
+        try:
+            frames = lyt.listElements('MAPFRAME_ELEMENT', frame_name)
+            if frames:
+                mf = frames[0]
+        except Exception as e:
+            arcpy.AddWarning(f'Could not re-acquire the map frame after grouping: {e}')
 
         layout_name_export = layout_name.replace(':', '_')
         new_map = None
