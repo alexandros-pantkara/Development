@@ -1,5 +1,5 @@
 ## Basic Info for working on QGIS project
-Use template project from:  <br>
+Use template project from: https://drive.google.com/drive/folders/1ueoAUcueP4LRf88UG81FoqkVx7Uxgk1U?usp=drive_link <br>
 
 To install the plugin: Plugins -> Manage and Install Plugins -> Install from ZIP -> Locate it from cloned Development folder.
 <img width="889" height="773" alt="image" src="https://github.com/user-attachments/assets/87521440-d376-45fc-b5c1-4c5ee1233263" />
