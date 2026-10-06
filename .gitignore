@@ -19,3 +19,22 @@ qgis-tools/dummy data/Γεωτεμάχιο.shp
 qgis-tools/dummy data/Γεωτεμάχιο.shp.xml
 qgis-tools/dummy data/Γεωτεμάχιο.shx
 qgis-tools/QGIS tools.qgz
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/antirrisi_common.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/common.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/convert_from_cad_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/create_antirrisi_layer_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/generate_layouts_da_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/generate_layouts_prod_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/generate_layouts_prod_dated_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/identify_layers_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/identify_rasters_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/insert_antirrisi_polygon_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/layer_coordinates_to_table_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/mosaic_rasters_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/save_layout_view_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/summarize_polygons_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/pantkara_scripts/__pycache__/theme_layouts_base.cpython-312.pyc
+qgis/Plugin/pantkara_tools/__pycache__/__init__.cpython-312.pyc
+qgis/Plugin/pantkara_tools/__pycache__/pantkara_tools.cpython-312.pyc
+qgis/Plugin/pantkara_tools/__pycache__/pantkara_tools_algorithm.cpython-312.pyc
+qgis/Plugin/pantkara_tools/__pycache__/pantkara_tools_provider.cpython-312.pyc
