@@ -23,3 +23,7 @@ Project setup and initially contained layers:  <br>
   2. Use Create Layouts DA or PROD to select the themes you created and export the layouts (they will be exported in the Layouts folder of the project)
   3. To easily manage Themes (add/remove/rearrange) use Theme Manager plugin or ThemeSelector plugin
 * To create Antirrisi polygons: First use the Create Antirrisi Layer tool to just create the layer in analysis>analysis.gpkg. Then use Insert Antirrisi polygon by copying-pasting the coordinates and information from the .pdf.
+
+## Important considerations
+* If a layer _is_ a ΓΕΩΤΕΜΑΧΙΟ but is named differently, (e.g., after the owner's name), it will get renamed during layout to "ΓΕΩΤΕΜΑΧΙΟ" and then back to its original name
+* Similarly, "ΔΑΣΙΚΟΣ ΧΑΡΤΗΣ" layers are renamed to "ΜΟΡΦΕΣ ΔΑΣΙΚΟΥ ΧΑΡΤΗ"

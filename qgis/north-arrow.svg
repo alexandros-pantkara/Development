@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 300" width="120" height="300" role="img" aria-label="North arrow">
+  <title>North arrow</title>
+  <g fill="#000000">
+    <!-- Letter N -->
+    <path d="M30,10 L43,10 L77,50 L77,10 L90,10 L90,72 L77,72 L43,32 L43,72 L30,72 Z"/>
+    <!-- Arrow, solid left half -->
+    <path d="M60,92 L14,290 L60,236 Z"/>
+  </g>
+  <!-- Arrow, outlined right half -->
+  <path d="M60,92 L106,290 L60,236 Z" fill="none" stroke="#000000" stroke-width="5" stroke-linejoin="miter"/>
+</svg>
